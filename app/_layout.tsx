@@ -1,24 +1,43 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { theme } from '../src/ui/theme';
+import { View } from 'react-native';
+import React, { useEffect } from 'react';
+import { NotificationService } from '../src/services/NotificationService';
 
 export const unstable_settings = {
   anchor: '(tabs)',
 };
 
+import { AppProvider } from '../src/context/AppContext';
+
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    NotificationService.init();
+  }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <AppProvider>
+      <ThemeProvider value={DarkTheme}>
+        <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+          <Stack screenOptions={{ 
+              headerShown: false,
+              contentStyle: { backgroundColor: theme.colors.background }
+            }}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="add" options={{ 
+              presentation: 'modal', 
+              title: 'New Transaction',
+              headerShown: true,
+              headerStyle: { backgroundColor: theme.colors.surface },
+              headerTintColor: theme.colors.textMain,
+            }} />
+          </Stack>
+          <StatusBar style="light" />
+        </View>
+      </ThemeProvider>
+    </AppProvider>
   );
 }

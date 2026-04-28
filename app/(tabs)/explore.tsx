@@ -1,112 +1,186 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Alert, ActivityIndicator } from 'react-native';
+import { theme } from '../../src/ui/theme';
+import { GlassContainer } from '../../src/ui/components/GlassContainer';
+import { Ionicons } from '@expo/vector-icons';
+import { StorageClient } from '../../src/data/storage';
+import { Category, Forecast } from '../../src/domain/models';
+import { AIEngine } from '../../src/domain/AIEngine';
+import { router } from 'expo-router';
+import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
+import { useApp } from '../../src/context/AppContext';
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+export interface Goal {
+  id: string;
+  name: string;
+  targetAmount: number;
+  currentAmount: number;
+  icon: string;
+  color: string;
+  deadline?: string;
+}
 
-export default function TabTwoScreen() {
+export default function ExploreScreen() {
+  const { settings } = useApp();
+  const [goals, setGoals] = useState<Goal[]>([]);
+  const [forecast, setForecast] = useState<Forecast | null>(null);
+  const [isAdding, setIsAdding] = useState(false);
+  const [newGoal, setNewGoal] = useState({ name: '', target: '', icon: 'star', color: theme.colors.indigo400 });
+
+  const loadData = async () => {
+    const [txns, accounts] = await Promise.all([
+      StorageClient.getTransactions(),
+      StorageClient.getAccounts()
+    ]);
+    
+    let bal = 0;
+    txns.forEach(t => bal += t.type === 'income' ? t.amount : -t.amount);
+    const f = await AIEngine.generateForecast(txns, bal);
+    setForecast(f);
+
+    // Mock goals for now
+    setGoals([
+      { id: '1', name: 'Emergency Fund', targetAmount: 50000, currentAmount: 12500, icon: 'shield-checkmark', color: '#10b981' },
+      { id: '2', name: 'New iPhone', targetAmount: 65000, currentAmount: 5000, icon: 'phone-portrait', color: '#818cf8' }
+    ]);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const handleAddGoal = () => {
+    if (!newGoal.name || !newGoal.target) return;
+    const goal: Goal = {
+      id: Math.random().toString(),
+      name: newGoal.name,
+      targetAmount: parseFloat(newGoal.target),
+      currentAmount: 0,
+      icon: newGoal.icon,
+      color: newGoal.color
+    };
+    setGoals([...goals, goal]);
+    setIsAdding(false);
+    setNewGoal({ name: '', target: '', icon: 'star', color: theme.colors.indigo400 });
+  };
+
+  const isDark = settings.darkMode;
+  const txtColor = isDark ? '#fff' : '#0f172a';
+  const curSymbol = settings.currency === 'PHP' ? '₱' : '$';
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <View style={[styles.container, { backgroundColor: isDark ? theme.colors.background : '#f8fafc' }]}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: txtColor }]}>Financial <Text style={{ color: theme.colors.indigo400 }}>Goals</Text></Text>
+          <Pressable style={styles.addBtn} onPress={() => setIsAdding(!isAdding)}>
+            <Ionicons name={isAdding ? "close" : "add"} size={24} color="#fff" />
+          </Pressable>
+        </View>
+
+        {isAdding && (
+          <Animated.View entering={FadeInDown} style={styles.addForm}>
+            <GlassContainer style={styles.formInside} intensity={20}>
+              <TextInput 
+                style={[styles.input, { color: txtColor }]}
+                placeholder="Goal Name (e.g. New Car)"
+                placeholderTextColor="rgba(255,255,255,0.3)"
+                value={newGoal.name}
+                onChangeText={(t) => setNewGoal({...newGoal, name: t})}
+              />
+              <TextInput 
+                style={[styles.input, { color: txtColor }]}
+                placeholder="Target Amount"
+                placeholderTextColor="rgba(255,255,255,0.3)"
+                keyboardType="numeric"
+                value={newGoal.target}
+                onChangeText={(t) => setNewGoal({...newGoal, target: t})}
+              />
+              <Pressable style={styles.submitBtn} onPress={handleAddGoal}>
+                <Text style={styles.submitText}>Add Goal</Text>
+              </Pressable>
+            </GlassContainer>
+          </Animated.View>
+        )}
+
+        {forecast && (
+          <GlassContainer style={styles.coachCard} intensity={15}>
+            <View style={styles.coachHeader}>
+              <Ionicons name="sparkles" size={20} color={theme.colors.indigo400} />
+              <Text style={styles.coachTitle}>AI Financial Coach</Text>
+            </View>
+            <Text style={styles.coachText}>
+              Based on your {curSymbol}{forecast.suggestedSavings.toLocaleString()} suggested monthly savings, 
+              you can reach your goals <Text style={{color: theme.colors.success, fontWeight: '800'}}>15% faster</Text> by reducing dining expenses.
+            </Text>
+          </GlassContainer>
+        )}
+
+        <View style={styles.goalsGrid}>
+          {goals.map((goal, idx) => {
+            const progress = goal.currentAmount / goal.targetAmount;
+            const monthsRemaining = forecast?.suggestedSavings && forecast.suggestedSavings > 0 
+              ? Math.ceil((goal.targetAmount - goal.currentAmount) / forecast.suggestedSavings)
+              : '??';
+
+            return (
+              <Animated.View key={goal.id} entering={FadeInDown.delay(idx * 100)} style={styles.goalWrapper}>
+                <GlassContainer style={styles.goalCard} intensity={10}>
+                  <View style={[styles.iconBox, { backgroundColor: `${goal.color}20` }]}>
+                    <Ionicons name={goal.icon as any} size={24} color={goal.color} />
+                  </View>
+                  <Text style={[styles.goalName, { color: txtColor }]}>{goal.name}</Text>
+                  <View style={styles.progressRow}>
+                    <View style={styles.progressBar}>
+                      <View style={[styles.progressFill, { width: `${progress * 100}%`, backgroundColor: goal.color }]} />
+                    </View>
+                    <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
+                  </View>
+                  <View style={styles.goalFooter}>
+                    <View>
+                      <Text style={styles.footerLabel}>Remaining</Text>
+                      <Text style={[styles.footerValue, { color: txtColor }]}>{curSymbol}{(goal.targetAmount - goal.currentAmount).toLocaleString()}</Text>
+                    </View>
+                    <View style={{ alignItems: 'flex-end' }}>
+                      <Text style={styles.footerLabel}>Est. Time</Text>
+                      <Text style={[styles.footerValue, { color: theme.colors.indigo400 }]}>{monthsRemaining} months</Text>
+                    </View>
+                  </View>
+                </GlassContainer>
+              </Animated.View>
+            );
+          })}
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
+  container: { flex: 1, backgroundColor: theme.colors.background },
+  scrollContent: { padding: 20, paddingTop: 60, paddingBottom: 100 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 },
+  title: { fontSize: 28, fontWeight: '900' },
+  addBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: theme.colors.indigo400, alignItems: 'center', justifyContent: 'center' },
+  addForm: { marginBottom: 24 },
+  formInside: { padding: 20, borderRadius: 24 },
+  input: { borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.1)', paddingVertical: 12, marginBottom: 16, fontSize: 16, fontWeight: '600' },
+  submitBtn: { backgroundColor: theme.colors.indigo400, paddingVertical: 14, borderRadius: 16, alignItems: 'center' },
+  submitText: { color: '#fff', fontWeight: '800', fontSize: 16 },
+  coachCard: { padding: 20, borderRadius: 24, marginBottom: 30, backgroundColor: 'rgba(129, 140, 248, 0.05)', borderWidth: 1, borderColor: 'rgba(129, 140, 248, 0.2)' },
+  coachHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
+  coachTitle: { color: theme.colors.indigo400, fontWeight: '900', marginLeft: 8, fontSize: 16 },
+  coachText: { color: 'rgba(255,255,255,0.7)', lineHeight: 22, fontSize: 14, fontWeight: '500' },
+  goalsGrid: { gap: 20 },
+  goalWrapper: { width: '100%' },
+  goalCard: { padding: 20, borderRadius: 28, borderWidth: 1, borderColor: 'rgba(255,255,255,0.05)' },
+  iconBox: { width: 52, height: 52, borderRadius: 18, alignItems: 'center', justifyContent: 'center', marginBottom: 16 },
+  goalName: { fontSize: 18, fontWeight: '800', marginBottom: 12 },
+  progressRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
+  progressBar: { flex: 1, height: 8, backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 4, marginRight: 12, overflow: 'hidden' },
+  progressFill: { height: '100%', borderRadius: 4 },
+  progressText: { fontSize: 12, fontWeight: '800', color: theme.colors.slate400, width: 35 },
+  goalFooter: { flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.05)', paddingTop: 16 },
+  footerLabel: { fontSize: 10, color: theme.colors.slate500, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 },
+  footerValue: { fontSize: 15, fontWeight: '800', marginTop: 4 }
 });

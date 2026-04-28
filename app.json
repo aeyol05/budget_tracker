@@ -1,15 +1,19 @@
 {
   "expo": {
-    "name": "ai_finance_tracker",
-    "slug": "ai_finance_tracker",
+    "name": "LuckyBuff",
+    "slug": "luckybuff",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "aifinancetracker",
+    "scheme": "luckybuff",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSSpeechRecognitionUsageDescription": "Allow $(PRODUCT_NAME) to use speech recognition.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use the microphone."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +23,14 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.aeyol05.luckybuff",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "output": "static",
@@ -27,6 +38,7 @@
     },
     "plugins": [
       "expo-router",
+      "@react-native-async-storage/expo-with-async-storage",
       [
         "expo-splash-screen",
         {
@@ -38,11 +50,31 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      "@react-native-voice/voice",
+      "expo-speech-recognition",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow LuckyBuff to access your camera to scan receipts."
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "271e1a43-861b-4caf-9ae9-d8506056c4df"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/271e1a43-861b-4caf-9ae9-d8506056c4df"
     }
   }
 }

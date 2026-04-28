@@ -1,0 +1,15 @@
+(node:267085) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+The field "cli.appVersionSource" is not set, but it will be required in the future. Learn more: https://docs.expo.dev/build-reference/app-versions/
+Resolved "preview" environment for the build. Learn more: https://docs.expo.dev/eas/environment-variables/#setting-the-environment-for-your-builds
+No environment variables with visibility "Plain text" and "Sensitive" found for the "preview" environment on EAS.
+
+
+
+The field "cli.appVersionSource" is not set, but it will be required in the future. Learn more: https://docs.expo.dev/build-reference/app-versions/
+✔ Using remote Android credentials (Expo server)
+✔ Using Keystore from configuration: Build Credentials hh8WddCAkB (default)
+
+Compressing project files and uploading to EAS Build. Learn more: https://expo.fyi/eas-build-archive
+⠋ Uploading to EAS Build (0 / 1.4 MB)⠙ Uploading to EAS Build (191 KB / 1.4 MB)⠹ Uploading to EAS Build (767 KB / 1.4 MB)⠸ Uploading to EAS Build (1.4 MB / 1.4 MB)⠼ Uploading to EAS Build (1.4 MB / 1.4 MB)⠴ Uploading to EAS Build (1.4 MB / 1.4 MB)⠦ Uploading to EAS Build (1.4 MB / 1.4 MB)⠧ Uploading to EAS Build (1.4 MB / 1.4 MB)⠇ Uploading to EAS Build (1.4 MB / 1.4 MB)⠏ Uploading to EAS Build (1.4 MB / 1.4 MB)⠋ Uploading to EAS Build (1.4 MB / 1.4 MB)⠙ Uploading to EAS Build (1.4 MB / 1.4 MB)⠹ Uploading to EAS Build (1.4 MB / 1.4 MB)⠸ Uploading to EAS Build (1.4 MB / 1.4 MB)⠼ Uploading to EAS Build (1.4 MB / 1.4 MB)⠴ Uploading to EAS Build (1.4 MB / 1.4 MB)⠦ Uploading to EAS Build (1.4 MB / 1.4 MB)⠧ Uploading to EAS Build (1.4 MB / 1.4 MB)⠇ Uploading to EAS Build (1.4 MB / 1.4 MB)⠏ Uploading to EAS Build (1.4 MB / 1.4 MB)⠋ Uploading to EAS Build (1.4 MB / 1.4 MB)⠙ Uploading to EAS Build (1.4 MB / 1.4 MB)⠹ Uploading to EAS Build (1.4 MB / 1.4 MB)⠸ Uploading to EAS Build (1.4 MB / 1.4 MB)⠼ Uploading to EAS Build (1.4 MB / 1.4 MB)⠴ Uploading to EAS Build (1.4 MB / 1.4 MB)⠦ Uploading to EAS Build (1.4 MB / 1.4 MB)⠧ Uploading to EAS Build (1.4 MB / 1.4 MB)⠇ Uploading to EAS Build (1.4 MB / 1.4 MB)⠏ Uploading to EAS Build (1.4 MB / 1.4 MB)⠋ Uploading to EAS Build (1.4 MB / 1.4 MB)⠙ Uploading to EAS Build (1.4 MB / 1.4 MB)⠹ Uploading to EAS Build (1.4 MB / 1.4 MB)⠸ Uploading to EAS Build (1.4 MB / 1.4 MB)⠼ Uploading to EAS Build (1.4 MB / 1.4 MB)✔ Uploaded to EAS 2s
+⠋ Computing project fingerprint⠙ Computing project fingerprint⠹ Computing project fingerprint⠸ Computing project fingerprint⠼ Computing project fingerprint⠴ Computing project fingerprint⠦ Computing project fingerprint⠧ Computing project fingerprint⠇ Computing project fingerprint⠏ Computing project fingerprint⠋ Computing project fingerprint
