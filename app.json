@@ -14,7 +14,7 @@
         "NSSpeechRecognitionUsageDescription": "Allow $(PRODUCT_NAME) to use speech recognition.",
         "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use the microphone."
       },
-      "bundleIdentifier": "com.aeyol05.capyvault"
+      "bundleIdentifier": "com.aeyol05.capi"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,7 +25,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.aeyol05.capyvault",
+      "package": "com.aeyol05.capi",
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.CAMERA"

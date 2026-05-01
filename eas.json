@@ -12,6 +12,9 @@
       "android": {
         "buildType": "apk"
       },
+      "ios": {
+        "simulator": true
+      },
       "distribution": "internal",
       "cache": {
         "disabled": true
@@ -19,6 +22,9 @@
     },
     "production": {
       "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
         "buildType": "app-bundle"
       }
     }
