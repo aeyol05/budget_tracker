@@ -50,7 +50,6 @@
           }
         }
       ],
-      "@react-native-voice/voice",
       "expo-speech-recognition",
       [
         "expo-camera",
