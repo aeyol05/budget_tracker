@@ -1,0 +1,161 @@
+
+> ai_finance_tracker@1.0.0 web
+> expo start --web
+
+Starting project at /home/ejay/.gemini/antigravity/scratch/ai_finance_tracker
+React Compiler enabled
+Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+Starting Metro Bundler
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules/expo-router/node/render.js ▓░░░░░░░░░░░░░░░ 10.4% ( 89/276)
+λ Bundled 3599ms node_modules/expo-router/node/render.js (1738 modules)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 99.9% (1865/1865)
+Web Bundled 6546ms node_modules/expo-router/entry.js (1865 modules)
+Web Bundled 927ms node_modules/expo-router/entry.js (1861 modules)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 74ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web Bundled 528ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 72ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 79ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web Bundled 615ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 104ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 77ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web Bundled 502ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 79ms node_modules/expo-router/entry.js (1 module)
+λ Bundled 69ms node_modules/expo-router/node/render.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web Bundled 559ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 68ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 107ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 2102ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 105ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 54ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web Bundled 437ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 103ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 53ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web Bundled 439ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 131ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+λ Bundled 52ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web Bundled 434ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 91ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+λ Bundled 53ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  [Layout children]: No route named "add_placeholder" exists in nested children: [
+  'analytics',
+  'budgets',
+  'explore',
+  'index',
+  'settings',
+  'transactions',
+  'wallets'
+] 
+Web Bundled 403ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 76ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Killed

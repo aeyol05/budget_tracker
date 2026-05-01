@@ -1,50 +1,49 @@
-# Welcome to your Expo app 👋
+# CapyVault 🌿
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+CapyVault is a premium finance tracker and personal companion app built with React Native and Expo. It helps you manage your budget, track expenses, take notes, and stay on top of your tasks with a calm, capybara-inspired aesthetic.
 
-## Get started
+## Features ✨
 
-1. Install dependencies
+- **Budget Tracker**: Plan and monitor your monthly spending with beautiful visualizations.
+- **AI Projections**: Get insights into your financial future based on current spending habits.
+- **Wallets Management**: Connect and track multiple accounts (GCash, BPI, Wise, etc.).
+- **Notes & Tasks**: A unified space for your thoughts and to-dos.
+- **Travel Planner**: Plan your journeys and track travel-related expenses.
+- **OCR Scanning**: Quickly add transactions by scanning receipts with AI.
+- **Voice Entry**: Log your spending hands-free using natural language.
 
+## Tech Stack 🛠️
+
+- **Framework**: React Native with Expo
+- **Navigation**: Expo Router (Drawer-based)
+- **UI**: Custom Vanilla CSS-in-JS, React Native Reanimated, Expo Image
+- **Icons**: Ionicons (@expo/vector-icons)
+- **Analysis**: Custom AI Engine for financial forecasting and categorization
+
+## Getting Started 🚀
+
+1. **Install dependencies**
    ```bash
    npm install
    ```
 
-2. Start the app
-
+2. **Start the development server**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. **Run on your preferred platform**
+   - Press `w` for Web
+   - Press `a` for Android
+   - Press `i` for iOS
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Design Aesthetics 🎨
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+CapyVault uses a curated, light-themed aesthetic with a focus on tranquility and visual excellence.
+- **Primary Color**: Dark Green/Teal (`#1b4332`)
+- **Background**: Soft Green (`#f4f6f3`)
+- **Typography**: Modern, bold sans-serif
+- **Interactions**: Smooth micro-animations and haptic feedback
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+Created with ❤️ by the CapyVault Team.

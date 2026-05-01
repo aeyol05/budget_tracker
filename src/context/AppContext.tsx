@@ -10,6 +10,8 @@ interface AppContextType {
   isLoaded: boolean;
   refreshAccounts: () => Promise<void>;
   reorderAccounts: (newAccounts: Account[]) => Promise<void>;
+  saveAccount: (account: Account) => Promise<void>;
+  deleteAccount: (id: string) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -46,8 +48,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     await StorageClient.saveAccounts(newAccounts);
   };
 
+  const saveAccount = async (account: Account) => {
+    await StorageClient.saveAccount(account);
+    await refreshAccounts();
+  };
+
+  const deleteAccount = async (id: string) => {
+    await StorageClient.deleteAccount(id);
+    await refreshAccounts();
+  };
+
   return (
-    <AppContext.Provider value={{ settings, updateSettings, accounts, isLoaded, refreshAccounts, reorderAccounts }}>
+    <AppContext.Provider value={{ 
+      settings, 
+      updateSettings, 
+      accounts, 
+      isLoaded, 
+      refreshAccounts, 
+      reorderAccounts,
+      saveAccount,
+      deleteAccount
+    }}>
       {children}
     </AppContext.Provider>
   );

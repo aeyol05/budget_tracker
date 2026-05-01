@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Transaction, Category, Budget, Subscription, Account } from '../domain/models';
+import { Transaction, Category, Budget, Subscription, Account, Trip, ScheduleEvent, NotificationRecord } from '../domain/models';
 import uuid from 'react-native-uuid';
 import { defaultCategories } from './mockData';
 import { mockAccounts } from './mockAccounts';
@@ -11,6 +11,12 @@ const BUDGETS_KEY = '@ai_finance_budgets';
 const SETTINGS_KEY = '@ai_finance_settings';
 const SUBS_KEY = '@ai_finance_subscriptions';
 const ACCOUNTS_KEY = '@ai_finance_accounts';
+const NOTIFIED_KEY = '@ai_finance_notified';
+const NOTES_KEY = '@ai_finance_notes';
+const TASKS_KEY = '@ai_finance_tasks';
+const TRIPS_KEY = '@ai_finance_trips';
+const EVENTS_KEY = '@ai_finance_events';
+const NOTIFICATIONS_KEY = '@ai_finance_notifications';
 
 export interface AppSettings {
   currency: string;
@@ -82,7 +88,27 @@ export class StorageClient {
     const percentage = spent / budget.targetAmount;
     
     if (percentage >= 0.7) {
-      await NotificationService.sendBudgetWarning(cat.name, percentage);
+      // Prevent duplicate notifications for the same category in the current month
+      const notifiedKey = `${year}-${month}-${categoryId}`;
+      const notifiedData = await AsyncStorage.getItem(NOTIFIED_KEY);
+      const notifiedList: string[] = notifiedData ? JSON.parse(notifiedData) : [];
+
+      if (!notifiedList.includes(notifiedKey)) {
+        await NotificationService.sendBudgetWarning(cat.name, percentage);
+        
+        // Save to history
+        await this.saveNotification({
+          id: uuid.v4() as string,
+          title: 'Budget Alert',
+          message: `Your spending on ${cat.name} has reached ${(percentage * 100).toFixed(0)}% of your budget.`,
+          timestamp: new Date().toISOString(),
+          read: false,
+          type: 'Budget'
+        });
+
+        notifiedList.push(notifiedKey);
+        await AsyncStorage.setItem(NOTIFIED_KEY, JSON.stringify(notifiedList));
+      }
     }
   }
 
@@ -150,5 +176,101 @@ export class StorageClient {
     if (index > -1) accounts[index] = account;
     else accounts.push({ ...account, id: account.id || uuid.v4() as string });
     await AsyncStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+  }
+
+  static async deleteAccount(id: string): Promise<void> {
+    const accounts = await this.getAccounts();
+    const filtered = accounts.filter(a => a.id !== id);
+    await AsyncStorage.setItem(ACCOUNTS_KEY, JSON.stringify(filtered));
+  }
+
+  static async getNotes(): Promise<any[]> {
+    const data = await AsyncStorage.getItem(NOTES_KEY);
+    return data ? JSON.parse(data) : [];
+  }
+
+  static async saveNotes(notes: any[]): Promise<void> {
+    await AsyncStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+  }
+
+  static async getTasks(): Promise<any[]> {
+    const data = await AsyncStorage.getItem(TASKS_KEY);
+    return data ? JSON.parse(data) : [];
+  }
+
+  static async saveTasks(tasks: any[]): Promise<void> {
+    await AsyncStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+  }
+  
+  static async getTrips(): Promise<Trip[]> {
+    const data = await AsyncStorage.getItem(TRIPS_KEY);
+    return data ? JSON.parse(data) : [];
+  }
+
+  static async saveTrip(trip: Trip): Promise<void> {
+    const trips = await this.getTrips();
+    const index = trips.findIndex(t => t.id === trip.id);
+    if (index > -1) {
+      trips[index] = trip;
+    } else {
+      trips.push({ ...trip, id: trip.id || uuid.v4() as string });
+    }
+    await AsyncStorage.setItem(TRIPS_KEY, JSON.stringify(trips));
+  }
+
+  static async deleteTrip(id: string): Promise<void> {
+    const trips = await this.getTrips();
+    const filtered = trips.filter(t => t.id !== id);
+    await AsyncStorage.setItem(TRIPS_KEY, JSON.stringify(filtered));
+  }
+
+  static async getEvents(): Promise<ScheduleEvent[]> {
+    const data = await AsyncStorage.getItem(EVENTS_KEY);
+    return data ? JSON.parse(data) : [];
+  }
+
+  static async saveEvent(event: ScheduleEvent): Promise<void> {
+    const events = await this.getEvents();
+    const index = events.findIndex(e => e.id === event.id);
+    if (index > -1) {
+      events[index] = event;
+    } else {
+      events.push({ ...event, id: event.id || uuid.v4() as string });
+    }
+    await AsyncStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+  }
+
+  static async deleteEvent(id: string): Promise<void> {
+    const events = await this.getEvents();
+    const filtered = events.filter(e => e.id !== id);
+    await AsyncStorage.setItem(EVENTS_KEY, JSON.stringify(filtered));
+  }
+
+  // Notifications
+  static async getNotifications(): Promise<NotificationRecord[]> {
+    const data = await AsyncStorage.getItem(NOTIFICATIONS_KEY);
+    return data ? JSON.parse(data) : [];
+  }
+
+  static async saveNotification(notification: NotificationRecord): Promise<void> {
+    const notifications = await this.getNotifications();
+    const updated = [notification, ...notifications];
+    await AsyncStorage.setItem(NOTIFICATIONS_KEY, JSON.stringify(updated));
+  }
+
+  static async markNotificationRead(id: string): Promise<void> {
+    const notifications = await this.getNotifications();
+    const updated = notifications.map(n => n.id === id ? { ...n, read: true } : n);
+    await AsyncStorage.setItem(NOTIFICATIONS_KEY, JSON.stringify(updated));
+  }
+
+  static async deleteNotification(id: string): Promise<void> {
+    const notifications = await this.getNotifications();
+    const filtered = notifications.filter(n => n.id !== id);
+    await AsyncStorage.setItem(NOTIFICATIONS_KEY, JSON.stringify(filtered));
+  }
+
+  static async clearNotifications(): Promise<void> {
+    await AsyncStorage.removeItem(NOTIFICATIONS_KEY);
   }
 }

@@ -1,0 +1,299 @@
+Starting project at /home/ejay/.gemini/antigravity/scratch/ai_finance_tracker
+React Compiler enabled
+Starting Metro Bundler
+warning: Bundler cache is empty, rebuilding (this may take a minute)
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules/expo-router/node/render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓░░░░░░░░░░░ 36.0% (11/28)
+λ node_modules/expo-router/node/render.js ░░░░░░░░░░░░░░░░  3.6% ( 23/152)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓░░░░░░░░░░░ 36.0% ( 29/121)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓░░░░░░░░░░░ 35.9% (253/422)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓░░░░░░░░░░░ 36.0% (116/282)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 60.4% (424/559)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓░░░░░░░░░░░ 36.0% (241/410)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 60.4% (498/929)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓░░░░░░░░░░░ 36.0% (265/450)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 60.4% ( 574/1016)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓░░░░░░░░░ 43.9% (314/474)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 60.4% ( 921/1200)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓░░░░░░░░ 54.0% (456/911)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 67.1% (1127/1376)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓░░░░░░░░ 54.0% ( 744/1078)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 74.0% (1247/1450)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 63.4% ( 939/1232)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 86.3% (1437/1547)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 68.4% (1175/1436)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 90.4% (1532/1611)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 74.9% (1361/1573)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92.5% (1568/1635)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 89.4% (1582/1673)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 96.3% (1641/1684)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 95.6% (1738/1782)
+λ node_modules/expo-router/node/render.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 97.6% (1739/1763)
+λ Bundled 49380ms node_modules/expo-router/node/render.js (1768 modules)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 99.9% (1894/1894)
+Web Bundled 53277ms node_modules/expo-router/entry.js (1894 modules)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 99.9% (1894/1894)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+λ  ERROR  Invalid DOM property `%s`. Did you mean `%s`? transform-origin transformOrigin 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 56.3% (192/340)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 56.3% ( 476/1005)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓░░░░░░░ 56.3% ( 922/1235)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓░░░░ 77.0% (1283/1462)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 83.8% (1509/1648)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92.4% (1696/1764)
+Web node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 97.0% (1845/1873)
+Web Bundled 27591ms node_modules/expo-router/entry.js (1895 modules)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 188ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 2390ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 174ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 92ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 1234ms node_modules/expo-router/entry.js (1 module)
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 104ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 1772ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 1370ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 3014ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 103ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 88ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 839ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 294ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 2649ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 1865ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 2995ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 103ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 287ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 3109ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 268ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 3216ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 87ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 72ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 659ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 86ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 1840ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+λ Bundled 100ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 73ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 699ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 1494ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 3335ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 70ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 91ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 2453ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+"shadow*" style props are deprecated. Use "boxShadow".
+ ERROR  SyntaxError: /home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/app/(drawer)/notes.tsx: Identifier 'React' has already been declared. (10:7)
+
+   8 | import { theme } from '../../src/ui/theme';
+   9 | import { format } from 'date-fns';
+> 10 | import React, { useState, useCallback } from 'react';
+     |        ^
+  11 | import { StorageClient } from '../../src/data/storage';
+  12 |
+  13 | type NoteColor = '#ffffff' | '#dbeafe' | '#fef08a' | '#dcfce7' | '#f3e8ff';
+    at constructor (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:365:19)
+    at TypeScriptParserMixin.raise (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:6599:19)
+    at TypeScriptScopeHandler.checkRedeclarationInScope (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:1619:19)
+    at TypeScriptScopeHandler.declareName (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:1585:12)
+    at TypeScriptScopeHandler.declareName (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:4880:11)
+    at TypeScriptParserMixin.declareNameFromIdentifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:7567:16)
+    at TypeScriptParserMixin.checkIdentifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:7563:12)
+    at TypeScriptParserMixin.checkLVal (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:7500:12)
+    at TypeScriptParserMixin.finishImportSpecifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14266:10)
+    at TypeScriptParserMixin.parseImportSpecifierLocal (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14263:31)
+    at TypeScriptParserMixin.maybeParseDefaultImportSpecifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14366:12)
+    at TypeScriptParserMixin.parseImportSpecifiersAndAfter (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14239:29)
+    at TypeScriptParserMixin.parseImport (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14235:17)
+    at TypeScriptParserMixin.parseImport (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:9353:26)
+    at TypeScriptParserMixin.parseStatementContent (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12876:27)
+    at TypeScriptParserMixin.parseStatementContent (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:9508:18)
+    at TypeScriptParserMixin.parseStatementLike (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12767:17)
+    at TypeScriptParserMixin.parseModuleItem (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12744:17)
+    at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:13316:36)
+    at TypeScriptParserMixin.parseBlockBody (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:13309:10)
+    at TypeScriptParserMixin.parseProgram (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12622:10)
+    at TypeScriptParserMixin.parseTopLevel (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12612:25)
+    at TypeScriptParserMixin.parse (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14488:25)
+    at TypeScriptParserMixin.parse (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:10126:18)
+    at parse (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14501:26)
+    at parser (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/parser/index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/transformation/index.js:22:50)
+    at run.next (<anonymous>)
+    at transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/transform.js:22:33)
+    at transform.next (<anonymous>)
+    at evaluateSync (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/gensync/index.js:251:28)
+    at sync (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/gensync/index.js:89:14)
+    at stopHiding - secret - don't use this - v1 (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/errors/rewrite-stack-trace.js:47:12)
+    at Object.transformSync (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/transform.js:40:76)
+    at parseWithBabel (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transformSync.js:75:18)
+    at transformSync (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transformSync.js:54:16)
+    at Object.transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/babel-transformer.js:127:58)
+    at transformJSWithBabel (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transform-worker/metro-transform-worker.js:468:47)
+    at Object.transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transform-worker/metro-transform-worker.js:583:12)
+    at Object.transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transform-worker/transform-worker.js:178:19)
+    at transformFile (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/metro/src/DeltaBundler/Worker.flow.js:67:36)
+    at Object.transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/metro/src/DeltaBundler/Worker.flow.js:42:10)
+    at execFunction (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/jest-worker/build/workers/processChild.js:149:17)
+    at execHelper (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/jest-worker/build/workers/processChild.js:137:5)
+    at execMethod (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/jest-worker/build/workers/processChild.js:140:5)
+    at process.messageListener (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/jest-worker/build/workers/processChild.js:44:7)
+    at process.emit (node:events:519:28)
+ ERROR  SyntaxError: /home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/app/(drawer)/tasks.tsx: Identifier 'useState' has already been declared. (7:16)
+
+   5 | import { Image } from 'expo-image';
+   6 | import { theme } from '../../src/ui/theme';
+>  7 | import { React, useState, useCallback } from 'react';
+     |                 ^
+   8 | import { Alert } from 'react-native';
+   9 | import { StorageClient } from '../../src/data/storage';
+  10 | import * as Haptics from 'expo-haptics';
+    at constructor (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:365:19)
+    at TypeScriptParserMixin.raise (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:6599:19)
+    at TypeScriptScopeHandler.declareName (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:4866:21)
+    at TypeScriptParserMixin.declareNameFromIdentifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:7567:16)
+    at TypeScriptParserMixin.checkIdentifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:7563:12)
+    at TypeScriptParserMixin.checkLVal (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:7500:12)
+    at TypeScriptParserMixin.finishImportSpecifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14266:10)
+    at TypeScriptParserMixin.parseImportSpecifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14419:17)
+    at TypeScriptParserMixin.parseImportSpecifier (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:10148:18)
+    at TypeScriptParserMixin.parseNamedImportSpecifiers (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14398:36)
+    at TypeScriptParserMixin.parseImportSpecifiersAndAfter (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14242:37)
+    at TypeScriptParserMixin.parseImport (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14235:17)
+    at TypeScriptParserMixin.parseImport (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:9353:26)
+    at TypeScriptParserMixin.parseStatementContent (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12876:27)
+    at TypeScriptParserMixin.parseStatementContent (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:9508:18)
+    at TypeScriptParserMixin.parseStatementLike (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12767:17)
+    at TypeScriptParserMixin.parseModuleItem (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12744:17)
+    at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:13316:36)
+    at TypeScriptParserMixin.parseBlockBody (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:13309:10)
+    at TypeScriptParserMixin.parseProgram (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12622:10)
+    at TypeScriptParserMixin.parseTopLevel (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:12612:25)
+    at TypeScriptParserMixin.parse (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14488:25)
+    at TypeScriptParserMixin.parse (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:10126:18)
+    at parse (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/parser/lib/index.js:14501:26)
+    at parser (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/parser/index.js:41:34)
+    at parser.next (<anonymous>)
+    at normalizeFile (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+    at normalizeFile.next (<anonymous>)
+    at run (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/transformation/index.js:22:50)
+    at run.next (<anonymous>)
+    at transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/transform.js:22:33)
+    at transform.next (<anonymous>)
+    at evaluateSync (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/gensync/index.js:251:28)
+    at sync (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/gensync/index.js:89:14)
+    at stopHiding - secret - don't use this - v1 (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/errors/rewrite-stack-trace.js:47:12)
+    at Object.transformSync (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@babel/core/lib/transform.js:40:76)
+    at parseWithBabel (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transformSync.js:75:18)
+    at transformSync (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transformSync.js:54:16)
+    at Object.transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/babel-transformer.js:127:58)
+    at transformJSWithBabel (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transform-worker/metro-transform-worker.js:468:47)
+    at Object.transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transform-worker/metro-transform-worker.js:583:12)
+    at Object.transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/@expo/metro-config/build/transform-worker/transform-worker.js:178:19)
+    at transformFile (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/metro/src/DeltaBundler/Worker.flow.js:67:36)
+    at Object.transform (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/metro/src/DeltaBundler/Worker.flow.js:42:10)
+    at execFunction (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/jest-worker/build/workers/processChild.js:149:17)
+    at execHelper (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/jest-worker/build/workers/processChild.js:137:5)
+    at execMethod (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/jest-worker/build/workers/processChild.js:140:5)
+    at process.messageListener (/home/ejay/.gemini/antigravity/scratch/ai_finance_tracker/node_modules/jest-worker/build/workers/processChild.js:44:7)
+    at process.emit (node:events:519:28)
+    at emit (node:internal/child_process:949:14)
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 2220ms node_modules/expo-router/node/render.js (1 module)
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 4186ms node_modules/expo-router/entry.js (1 module)
+λ  WARN  "shadow*" style props are deprecated. Use "boxShadow". 
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 71ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 79ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 2226ms node_modules/expo-router/entry.js (1 module)
+λ  WARN  "shadow*" style props are deprecated. Use "boxShadow". 
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 1843ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 3448ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 88ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 210ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 1139ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 505ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 2599ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 147ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 167ms node_modules/expo-router/entry.js (1 module)
+Web Bundled 2539ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+"shadow*" style props are deprecated. Use "boxShadow".
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 104ms node_modules/expo-router/node/render.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web Bundled 786ms node_modules/expo-router/entry.js (1 module)
+λ Bundled 114ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 133ms node_modules/expo-router/entry.js (1 module)
+"shadow*" style props are deprecated. Use "boxShadow".
+Web Bundled 748ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 292ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 2169ms node_modules/expo-router/entry.js (1 module)
+λ  WARN  "shadow*" style props are deprecated. Use "boxShadow". 
+λ  WARN  props.pointerEvents is deprecated. Use style.pointerEvents 
+Web node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 138ms node_modules/expo-router/node/render.js (1 module)
+Web Bundled 63ms node_modules/expo-router/entry.js (1 module)
+λ  WARN  "shadow*" style props are deprecated. Use "boxShadow". 
+Web Bundled 2206ms node_modules/expo-router/entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console

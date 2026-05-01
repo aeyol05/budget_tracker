@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Pressable, Alert, Platform } from 'react-native';
 import { StorageClient } from '../../src/data/storage';
 import { Transaction, Category } from '../../src/domain/models';
 import { theme } from '../../src/ui/theme';
@@ -11,10 +11,13 @@ import { useApp } from '../../src/context/AppContext';
 import { TextInput } from 'react-native';
 import { Swipeable, GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as Haptics from 'expo-haptics';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
+import { DrawerActions } from '@react-navigation/native';
 import Animated, { FadeIn, FadeOut, SlideInLeft } from 'react-native-reanimated';
+import { Header } from '../../src/ui/components/Header';
 
 export default function TransactionsScreen() {
+  const navigation = useNavigation<any>();
   const { settings } = useApp();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -42,16 +45,34 @@ export default function TransactionsScreen() {
     return matchesFilter && matchesSearch;
   });
 
-  const handleDelete = async (id: string) => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    await StorageClient.deleteTransaction(id);
-    setTransactions(prev => prev.filter(t => t.id !== id));
+  const handleDelete = (id: string) => {
+    if (Platform.OS === 'web') {
+      if (window.confirm("Are you sure you want to delete this transaction?")) {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        StorageClient.deleteTransaction(id).then(() => {
+          setTransactions(prev => prev.filter(t => t.id !== id));
+        });
+      }
+    } else {
+      Alert.alert(
+        "Confirm Delete",
+        "Are you sure you want to delete this transaction?",
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "Delete", style: "destructive", onPress: async () => {
+              Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+              await StorageClient.deleteTransaction(id);
+              setTransactions(prev => prev.filter(t => t.id !== id));
+          }}
+        ]
+      );
+    }
   };
 
   const curSymbol = settings.currency === 'PHP' ? '₱' : settings.currency === 'USD' ? '$' : '€';
-  const isDark = settings.darkMode;
-  const bgColor = isDark ? theme.colors.background : '#f8fafc';
-  const txtColor = isDark ? '#fff' : '#0f172a';
+  const bgColor = '#f4f6f3';
+  const txtColor = '#0f172a';
+  const subTxtColor = '#64748b';
 
   const renderRightActions = (id: string) => (
     <Pressable onPress={() => handleDelete(id)} style={styles.deleteAction}>
@@ -66,21 +87,21 @@ export default function TransactionsScreen() {
     return (
       <Swipeable renderRightActions={() => renderRightActions(item.id)}>
         <Animated.View entering={FadeIn} exiting={FadeOut}>
-          <Pressable onPress={() => router.push({ pathname: '/add', params: { editId: item.id } })}>
-            <GlassContainer style={styles.card} intensity={isDark ? 8 : 100}>
+          <Pressable onPress={() => router.push(`/add?editId=${item.id}`)}>
+            <View style={styles.card}>
               <View style={styles.cardLeft}>
-                <View style={[styles.iconCircle, {backgroundColor: cat ? `${cat.color}${isDark ? '15' : '20'}` : theme.colors.slate900, borderColor: cat ? `${cat.color}30` : 'rgba(255,255,255,0.05)'}]}>
-                   <Ionicons name={(cat?.icon as any) || (isTransfer ? 'swap-horizontal' : isExp ? 'cart' : 'cash')} size={20} color={cat?.color || '#fff'} />
+                <View style={[styles.iconCircle, {backgroundColor: cat ? `${cat.color}20` : '#f1f5f9', borderColor: cat ? `${cat.color}30` : '#e2e8f0'}]}>
+                   <Ionicons name={(cat?.icon as any) || (isTransfer ? 'swap-horizontal' : isExp ? 'cart' : 'cash')} size={20} color={cat?.color || '#0f172a'} />
                 </View>
                 <View style={styles.cardDetails}>
                   <Text style={[styles.merchant, { color: txtColor }]}>{item.merchant || 'Unknown'}</Text>
-                  <Text style={[styles.date, { color: isDark ? theme.colors.slate400 : theme.colors.slate500 }]}>{format(new Date(item.date), 'MMM dd, yyyy • HH:mm')}</Text>
+                  <Text style={[styles.date, { color: subTxtColor }]}>{format(new Date(item.date), 'MMM dd, yyyy • HH:mm')}</Text>
                 </View>
               </View>
-              <Text style={[styles.amount, {color: isTransfer ? theme.colors.indigo400 : isExp ? '#f43f5e' : theme.colors.success}]}>
+              <Text style={[styles.amount, {color: isTransfer ? '#4338ca' : isExp ? '#ef4444' : '#10b981'}]}>
                 {isTransfer ? '' : isExp ? '-' : '+'}{curSymbol}{item.amount.toLocaleString()}
               </Text>
-            </GlassContainer>
+            </View>
           </Pressable>
         </Animated.View>
       </Swipeable>
@@ -89,18 +110,25 @@ export default function TransactionsScreen() {
 
   return (
     <GestureHandlerRootView style={[styles.container, { backgroundColor: bgColor }]}>
-      <Text style={[styles.title, { color: txtColor }]}>Transactions</Text>
+      <Header 
+        title="Transactions" 
+        subtitle="Your spending history" 
+        icon="list" 
+        iconColor="#1b4332"
+        showBackButton={true}
+      />
       
-      <GlassContainer style={styles.searchBar} intensity={10}>
-        <Ionicons name="search" size={20} color={theme.colors.slate500} />
+      <View style={{padding: 16}}>
+        <View style={styles.searchBar}>
+        <Ionicons name="search" size={20} color="#64748b" />
         <TextInput 
           style={[styles.searchInput, { color: txtColor }]}
           placeholder="Search merchants or notes..."
-          placeholderTextColor={theme.colors.slate500}
+          placeholderTextColor="#94a3b8"
           value={search}
           onChangeText={setSearch}
         />
-      </GlassContainer>
+      </View>
 
       <View style={styles.filterRow}>
         {(['all', 'income', 'expense', 'transfer'] as const).map(f => (
@@ -112,16 +140,17 @@ export default function TransactionsScreen() {
               setFilter(f);
             }}
           >
-            <Text style={[styles.filterText, filter === f && {color: '#fff'}]}>{f.charAt(0).toUpperCase() + f.slice(1)}</Text>
+            <Text style={[styles.filterText, filter === f && {color: '#1b4332'}]}>{f.charAt(0).toUpperCase() + f.slice(1)}</Text>
           </Pressable>
         ))}
       </View>
+    </View>
 
-      <FlatList
+    <FlatList
         data={filteredData}
         keyExtractor={item => item.id}
         renderItem={renderItem}
-        contentContainerStyle={{paddingBottom: 150}}
+        contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 150}}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Ionicons name="receipt-outline" size={64} color={theme.colors.slate900} />
@@ -129,6 +158,10 @@ export default function TransactionsScreen() {
           </View>
         }
       />
+
+      <Pressable style={styles.fabMenu} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+        <Ionicons name="menu" size={24} color="#fff" />
+      </Pressable>
 
       <Pressable 
         style={styles.fab} 
@@ -144,23 +177,23 @@ export default function TransactionsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.background, padding: 16, paddingTop: 40 },
-  title: { fontSize: 32, fontWeight: '800', color: '#fff', marginBottom: 20 },
-  searchBar: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12, borderRadius: 16, marginBottom: 16 },
+  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  searchBar: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12, borderRadius: 16, marginBottom: 16, backgroundColor: '#fff', borderWidth: 1, borderColor: '#e2e8f0' },
   searchInput: { flex: 1, marginLeft: 10, fontSize: 16, fontWeight: '600' },
-  filterRow: { flexDirection: 'row', marginBottom: 20, backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 20, padding: 4 },
+  filterRow: { flexDirection: 'row', marginBottom: 20, backgroundColor: '#f1f5f9', borderRadius: 20, padding: 4 },
   filterBtn: { flex: 1, paddingVertical: 10, alignItems: 'center', borderRadius: 16 },
-  filterBtnActive: { backgroundColor: theme.colors.indigo400 },
-  filterText: { color: theme.colors.slate400, fontWeight: '700' },
-  card: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, padding: 16, borderRadius: 24 },
+  filterBtnActive: { backgroundColor: '#fff', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 2 },
+  filterText: { color: '#64748b', fontWeight: '700' },
+  card: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, padding: 16, borderRadius: 24, backgroundColor: '#fff', borderWidth: 1, borderColor: '#e2e8f0' },
   cardLeft: { flexDirection: 'row', alignItems: 'center' },
-  iconCircle: { width: 44, height: 44, borderRadius: 14, backgroundColor: theme.colors.slate900, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.05)' },
+  iconCircle: { width: 44, height: 44, borderRadius: 14, backgroundColor: '#f1f5f9', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#e2e8f0' },
   cardDetails: { marginLeft: 12 },
-  merchant: { fontSize: 16, fontWeight: '700', color: '#fff' },
-  date: { fontSize: 12, color: theme.colors.slate400, marginTop: 4 },
+  merchant: { fontSize: 16, fontWeight: '700', color: '#0f172a' },
+  date: { fontSize: 12, color: '#64748b', marginTop: 4 },
   amount: { fontSize: 16, fontWeight: '800' },
-  deleteAction: { backgroundColor: theme.colors.danger, justifyContent: 'center', alignItems: 'center', width: 80, height: 76, borderRadius: 24, marginLeft: 12, marginBottom: 12 },
+  deleteAction: { backgroundColor: '#ef4444', justifyContent: 'center', alignItems: 'center', width: 80, height: 76, borderRadius: 24, marginLeft: 12, marginBottom: 12 },
   emptyContainer: { alignItems: 'center', marginTop: 100 },
-  emptyText: { color: theme.colors.slate400, textAlign: 'center', marginTop: 16, fontWeight: '600' },
-  fab: { position: 'absolute', bottom: 100, right: 24, width: 64, height: 64, borderRadius: 32, backgroundColor: theme.colors.indigo400, alignItems: 'center', justifyContent: 'center', elevation: 10, shadowColor: theme.colors.indigo400, shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.3, shadowRadius: 15 }
+  emptyText: { color: '#64748b', textAlign: 'center', marginTop: 16, fontWeight: '600' },
+  fab: { position: 'absolute', bottom: 40, right: 24, width: 64, height: 64, borderRadius: 32, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 10, shadowColor: '#1b4332', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.3, shadowRadius: 15 },
+  fabMenu: { position: 'absolute', bottom: 40, left: 24, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
 });

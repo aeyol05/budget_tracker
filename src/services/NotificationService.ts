@@ -31,6 +31,37 @@ export class NotificationService {
     });
   }
 
+  static async scheduleEventReminder(title: string, date: string, startTime: string) {
+    if (Platform.OS === 'web' || !Notifications) return;
+
+    try {
+      const [hours, minutes] = startTime.split(':').map(Number);
+      const eventDate = new Date(date);
+      eventDate.setHours(hours, minutes, 0, 0);
+
+      // Trigger 1 hour before
+      const triggerTime = eventDate.getTime() - (60 * 60 * 1000);
+      const triggerDate = new Date(triggerTime);
+
+      if (triggerTime <= Date.now()) {
+        console.log("Trigger time is in the past, skipping reminder");
+        return;
+      }
+
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "📅 Schedule Reminder",
+          body: `"${title}" starts in 1 hour!`,
+          sound: true,
+        },
+        trigger: triggerDate,
+      });
+      console.log(`Scheduled reminder for ${title} at ${triggerDate.toLocaleString()}`);
+    } catch (e) {
+      console.error("Failed to schedule notification", e);
+    }
+  }
+
   static async init() {
     if (!Notifications) return;
     Notifications.setNotificationHandler({

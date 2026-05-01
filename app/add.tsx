@@ -11,6 +11,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
 import { useApp } from '../src/context/AppContext';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import { Header } from '../src/ui/components/Header';
 
 // Conditional import for voice as it might not be supported on all web browsers
 let useSpeechRecognitionEvent: any = null;
@@ -53,8 +54,16 @@ export default function AddTransactionScreen() {
           setNotes(existing.notes || '');
           setPaymentMethod(existing.paymentMethod || 'Card');
         }
-      } else if (cats.length > 0) {
-        setCategoryId(cats[0].id);
+      } else {
+        if (params.amount) setAmount(params.amount as string);
+        if (params.merchant) setMerchant(params.merchant as string);
+        if (params.type) setType(params.type as any);
+        if (params.categoryId) setCategoryId(params.categoryId as string);
+        else if (cats.length > 0) {
+          setCategoryId(cats[0].id);
+        }
+        if (params.notes) setNotes(params.notes as string);
+        if (params.paymentMethod) setPaymentMethod(params.paymentMethod as string);
       }
     };
     init();
@@ -117,10 +126,28 @@ export default function AddTransactionScreen() {
     router.back();
   };
 
+  const handleDelete = () => {
+    const doDelete = async () => {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      await StorageClient.deleteTransaction(params.editId as string);
+      router.back();
+    };
+
+    if (Platform.OS === 'web') {
+      if (window.confirm("Are you sure you want to delete this transaction?")) {
+        doDelete();
+      }
+    } else {
+      Alert.alert("Confirm Delete", "Are you sure you want to delete this transaction?", [
+        { text: "Cancel", style: "cancel" },
+        { text: "Delete", style: "destructive", onPress: doDelete }
+      ]);
+    }
+  };
+
   const curSymbol = settings.currency === 'PHP' ? '₱' : settings.currency === 'USD' ? '$' : '€';
-  const isDark = settings.darkMode;
-  const bgColor = isDark ? theme.colors.background : '#f8fafc';
-  const txtColor = isDark ? '#fff' : '#0f172a';
+  const bgColor = '#f4f6f3';
+  const txtColor = '#0f172a';
 
   const [permission, requestPermission] = useCameraPermissions();
   const [isListening, setIsListening] = useState(false);
@@ -269,19 +296,26 @@ export default function AddTransactionScreen() {
   }
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: bgColor }]} contentContainerStyle={{paddingBottom: 40}}>
-      <Text style={[styles.label, { color: txtColor }]}>Amount</Text>
-      <View style={styles.amountContainer}>
-        <Text style={[styles.currency, { color: txtColor }]}>{curSymbol}</Text>
-        <TextInput 
-          style={[styles.amountInput, { color: txtColor }]}
-          value={amount}
-          onChangeText={setAmount}
-          placeholder="0.00"
-          placeholderTextColor="rgba(255,255,255,0.2)"
-          keyboardType="numeric"
-        />
-      </View>
+    <View style={[styles.container, { backgroundColor: bgColor }]}>
+      <Header 
+        title={params.editId ? "Edit Transaction" : "New Transaction"} 
+        subtitle={mode === 'scan' ? "Scanning receipt" : mode === 'voice' ? "Listening to you" : "Manual entry"}
+        showBackButton={true}
+      />
+      <ScrollView contentContainerStyle={{padding: 16, paddingBottom: 40}}>
+
+        <Text style={[styles.label, { color: txtColor, marginTop: 0 }]}>Amount</Text>
+        <View style={styles.amountContainer}>
+          <Text style={[styles.currency, { color: txtColor }]}>{curSymbol}</Text>
+          <TextInput 
+            style={[styles.amountInput, { color: txtColor }]}
+            value={amount}
+            onChangeText={setAmount}
+            placeholder="0.00"
+            placeholderTextColor="#94a3b8"
+            keyboardType="numeric"
+          />
+        </View>
 
       <GlassContainer style={styles.inputContainer}>
         <Text style={[styles.label, { color: txtColor }]}>Type</Text>
@@ -330,7 +364,7 @@ export default function AddTransactionScreen() {
         value={merchant}
         onChangeText={handleMerchantChange}
         placeholder="Where was this?"
-        placeholderTextColor="rgba(255,255,255,0.2)"
+        placeholderTextColor="#94a3b8"
       />
 
       <Text style={[styles.label, { color: txtColor }]}>Payment Method</Text>
@@ -352,41 +386,51 @@ export default function AddTransactionScreen() {
         value={notes}
         onChangeText={setNotes}
         placeholder="Add a remark..."
-        placeholderTextColor="rgba(255,255,255,0.2)"
+        placeholderTextColor="#94a3b8"
         multiline
       />
 
-      <Pressable style={styles.saveBtn} onPress={handleSave}>
-        <Text style={styles.saveBtnText}>Save Transaction</Text>
-      </Pressable>
-    </ScrollView>
+      <View style={{flexDirection: 'row', gap: 12, marginTop: 10}}>
+        {params.editId && (
+          <Pressable style={styles.deleteBtn} onPress={handleDelete}>
+            <Text style={styles.deleteBtnText}>Delete</Text>
+          </Pressable>
+        )}
+        <Pressable style={[styles.saveBtn, {flex: 1}]} onPress={handleSave}>
+          <Text style={styles.saveBtnText}>Save Transaction</Text>
+        </Pressable>
+      </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.background, padding: 16 },
-  title: { fontSize: 24, fontWeight: 'bold', color: theme.colors.textMain, marginTop: 20 },
-  subtitle: { fontSize: 14, color: theme.colors.textMuted, marginTop: 8, marginBottom: 40 },
-  primaryBtn: { backgroundColor: theme.colors.indigo400, paddingHorizontal: 30, paddingVertical: 15, borderRadius: 25 },
+  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  title: { fontSize: 24, fontWeight: '800', color: '#0f172a', marginTop: 20 },
+  subtitle: { fontSize: 14, color: '#64748b', marginTop: 8, marginBottom: 40 },
+  primaryBtn: { backgroundColor: '#1b4332', paddingHorizontal: 30, paddingVertical: 15, borderRadius: 25 },
   btnText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
   actionIconLg: { width: 100, height: 100, borderRadius: 30, alignItems: 'center', justifyContent: 'center', marginBottom: 24 },
-  label: { fontSize: 14, fontWeight: '700', color: theme.colors.slate400, marginBottom: 12, marginTop: 24 },
+  label: { fontSize: 14, fontWeight: '700', color: '#64748b', marginBottom: 12, marginTop: 24 },
   amountContainer: { flexDirection: 'row', alignItems: 'center', marginBottom: 24 },
   currency: { fontSize: 32, fontWeight: '800', marginRight: 8 },
   amountInput: { fontSize: 48, fontWeight: '800', flex: 1 },
-  inputContainer: { padding: 16, borderRadius: 24, marginBottom: 20 },
+  inputContainer: { padding: 16, borderRadius: 24, marginBottom: 20, backgroundColor: '#fff', borderWidth: 1, borderColor: '#e2e8f0' },
   typeRow: { flexDirection: 'row', justifyContent: 'space-between' },
-  typeBtn: { flex: 1, paddingVertical: 14, alignItems: 'center', borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.05)', marginHorizontal: 4 },
-  typeBtnText: { color: '#fff', fontWeight: '800' },
+  typeBtn: { flex: 1, paddingVertical: 14, alignItems: 'center', borderRadius: 16, backgroundColor: '#f1f5f9', marginHorizontal: 4 },
+  typeBtnText: { color: '#64748b', fontWeight: '800' },
   catScroll: { flexDirection: 'row' },
-  catItem: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.05)', marginRight: 10, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)' },
-  catText: { color: theme.colors.slate400, marginLeft: 8, fontWeight: '700' },
+  catItem: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 16, backgroundColor: '#fff', marginRight: 10, borderWidth: 1, borderColor: '#e2e8f0' },
+  catText: { color: '#64748b', marginLeft: 8, fontWeight: '700' },
   methodRow: { flexDirection: 'row', marginBottom: 20 },
-  methodBtn: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 12, backgroundColor: 'rgba(255,255,255,0.05)', marginRight: 10, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)' },
-  methodText: { color: theme.colors.slate400, fontWeight: '700', fontSize: 13 },
-  input: { fontSize: 18, fontWeight: '600', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.1)', marginBottom: 32 },
-  saveBtn: { backgroundColor: theme.colors.indigo400, paddingVertical: 18, borderRadius: 20, alignItems: 'center', marginTop: 10 },
+  methodBtn: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 12, backgroundColor: '#fff', marginRight: 10, borderWidth: 1, borderColor: '#e2e8f0' },
+  methodText: { color: '#64748b', fontWeight: '700', fontSize: 13 },
+  input: { fontSize: 18, fontWeight: '600', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#cbd5e1', marginBottom: 32 },
+  saveBtn: { backgroundColor: '#1b4332', paddingVertical: 18, borderRadius: 20, alignItems: 'center' },
   saveBtnText: { color: '#fff', fontSize: 18, fontWeight: '800' },
+  deleteBtn: { backgroundColor: '#fee2e2', paddingVertical: 18, paddingHorizontal: 24, borderRadius: 20, alignItems: 'center', borderColor: '#ef4444', borderWidth: 1 },
+  deleteBtnText: { color: '#ef4444', fontSize: 18, fontWeight: '800' },
   cameraContainer: { flex: 1, backgroundColor: 'black' },
   camera: { flex: 1 },
   cameraOverlay: { flex: 1, alignItems: 'center', justifyContent: 'center' },

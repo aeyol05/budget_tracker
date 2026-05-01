@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Dimensions, Modal, ActivityIndicator, Platform, Animated, Vibration } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView, Dimensions, Modal, ActivityIndicator, Platform, Alert, Animated as RNAnimated } from 'react-native';
+import * as Haptics from 'expo-haptics';
+import Animated, { FadeIn, FadeOut, Layout, ZoomIn } from 'react-native-reanimated';
 import { theme } from '../../src/ui/theme';
 import { useApp } from '../../src/context/AppContext';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Account } from '../../src/domain/models';
+import { Header } from '../../src/ui/components/Header';
+import { router, useNavigation, useLocalSearchParams, useFocusEffect } from 'expo-router';
+import { DrawerActions } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 const CARD_WIDTH = (width - theme.spacing.md * 3) / 2;
@@ -17,28 +22,38 @@ const CONNECT_PROVIDERS = [
   { id: 'etoro', name: 'eToro', type: 'stock', color: '#1CA4A4', icon: 'trending-up' },
 ];
 
-const AccountCard = ({ account, isSorting, onLongPress, onPress, isSelected }: { 
+const AccountCard = ({ account, isSorting, onLongPress, onPress, onDelete, isSelected }: { 
   account: Account, 
   isSorting: boolean, 
   onLongPress: () => void,
   onPress: () => void,
+  onDelete: () => void,
   isSelected: boolean
 }) => {
-  const shakeAnim = React.useRef(new Animated.Value(0)).current;
+  const shakeAnim = React.useRef(new RNAnimated.Value(0)).current;
+  const scaleAnim = React.useRef(new RNAnimated.Value(1)).current;
 
   React.useEffect(() => {
     if (isSorting) {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(shakeAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
-          Animated.timing(shakeAnim, { toValue: -1, duration: 100, useNativeDriver: true }),
-          Animated.timing(shakeAnim, { toValue: 0, duration: 100, useNativeDriver: true }),
+      RNAnimated.loop(
+        RNAnimated.sequence([
+          RNAnimated.timing(shakeAnim, { toValue: 1, duration: 100, useNativeDriver: true }),
+          RNAnimated.timing(shakeAnim, { toValue: -1, duration: 100, useNativeDriver: true }),
+          RNAnimated.timing(shakeAnim, { toValue: 0, duration: 100, useNativeDriver: true }),
         ])
       ).start();
     } else {
       shakeAnim.setValue(0);
     }
   }, [isSorting]);
+
+  React.useEffect(() => {
+    RNAnimated.spring(scaleAnim, {
+      toValue: isSelected ? 1.05 : 1,
+      useNativeDriver: true,
+      friction: 4,
+    }).start();
+  }, [isSelected]);
 
   const rotation = shakeAnim.interpolate({
     inputRange: [-1, 1],
@@ -59,9 +74,14 @@ const AccountCard = ({ account, isSorting, onLongPress, onPress, isSelected }: {
   };
 
   return (
-    <Animated.View style={[
+    <RNAnimated.View style={[
       styles.cardContainer, 
-      { transform: [{ rotate: isSorting ? rotation : '0deg' }] }
+      { 
+        transform: [
+          { rotate: isSorting ? rotation : '0deg' },
+          { scale: scaleAnim }
+        ] 
+      }
     ]}>
       <TouchableOpacity 
         activeOpacity={0.8} 
@@ -81,7 +101,10 @@ const AccountCard = ({ account, isSorting, onLongPress, onPress, isSelected }: {
           {isSorting ? (
             <Ionicons name="swap-vertical" size={16} color="white" />
           ) : (
-            <TouchableOpacity style={styles.moreButton}>
+            <TouchableOpacity 
+              style={styles.moreButton}
+              onPress={onDelete}
+            >
               <Ionicons name="ellipsis-horizontal" size={16} color="rgba(255,255,255,0.7)" />
             </TouchableOpacity>
           )}
@@ -112,26 +135,48 @@ const AccountCard = ({ account, isSorting, onLongPress, onPress, isSelected }: {
           </View>
         )}
       </TouchableOpacity>
-    </Animated.View>
+    </RNAnimated.View>
   );
 };
 
 export default function WalletsScreen() {
-  const { accounts, reorderAccounts } = useApp();
+  const { accounts, reorderAccounts, saveAccount, deleteAccount } = useApp();
+  const navigation = useNavigation<any>();
   const [modalVisible, setModalVisible] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<any>(null);
   const [isSorting, setIsSorting] = useState(false);
+  const { openAdd } = useLocalSearchParams();
   const [swapTargetId, setSwapTargetId] = useState<string | null>(null);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      if (openAdd === 'true') {
+        setModalVisible(true);
+      }
+    }, [openAdd])
+  );
+
   const startSort = (id: string) => {
-    setIsSorting(true);
-    setSwapTargetId(id);
-    Vibration.vibrate(50);
+    if (isSorting) {
+      if (swapTargetId === id) {
+        setIsSorting(false);
+        setSwapTargetId(null);
+      } else {
+        setSwapTargetId(id);
+      }
+    } else {
+      setIsSorting(true);
+      setSwapTargetId(id);
+    }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   };
 
   const handleCardPress = (id: string) => {
-    if (!isSorting) return;
+    if (!isSorting) {
+      Haptics.selectionAsync();
+      return;
+    }
     
     if (swapTargetId && swapTargetId !== id) {
       // Perform SWAP
@@ -145,8 +190,10 @@ export default function WalletsScreen() {
       
       reorderAccounts(newAccounts);
       setSwapTargetId(null);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else {
       setSwapTargetId(id);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
   };
 
@@ -154,34 +201,64 @@ export default function WalletsScreen() {
     setSelectedProvider(provider);
     setConnecting(true);
     // Mock connection delay
-    setTimeout(() => {
+    setTimeout(async () => {
+      const newAccount: Account = {
+        id: `${provider.id}_${Date.now()}`,
+        name: provider.name,
+        type: provider.type as any,
+        subtype: `Connected ${provider.type.charAt(0).toUpperCase() + provider.type.slice(1)}`,
+        balance: Math.floor(Math.random() * 50000) + 5000,
+        currency: 'PHP',
+        color: provider.color,
+      };
+      
+      await saveAccount(newAccount);
       setConnecting(false);
       setModalVisible(false);
       setSelectedProvider(null);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     }, 2000);
+  };
+
+  const handleDeleteAccount = (id: string, name: string) => {
+    Alert.alert(
+      "Delete Account",
+      `Are you sure you want to remove ${name}?`,
+      [
+        { text: "Cancel", style: "cancel" },
+        { 
+          text: "Delete", 
+          style: "destructive", 
+          onPress: async () => {
+            await deleteAccount(id);
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+          }
+        }
+      ]
+    );
   };
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={[theme.colors.background, '#1e1b4b']}
-        style={StyleSheet.absoluteFill}
+      <Header 
+        title="Wallets" 
+        subtitle={isSorting ? 'Tap another card to swap positions' : 'Manage your connected accounts'} 
+        icon="wallet" 
+        iconColor="#698b53"
       />
       
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.headerTitle}>{isSorting ? 'Sorting Accounts' : 'Wallets'}</Text>
-          <Text style={styles.headerSubtitle}>
-            {isSorting ? 'Tap another card to swap positions' : 'Manage your connected accounts'}
-          </Text>
-        </View>
-        <TouchableOpacity 
-          style={[styles.addButton, isSorting && { backgroundColor: theme.colors.success }]}
-          onPress={() => isSorting ? setIsSorting(false) : setModalVisible(true)}
-        >
+      <TouchableOpacity 
+        style={[styles.floatingAddButton, isSorting && { backgroundColor: theme.colors.success }]}
+        onPress={() => isSorting ? setIsSorting(false) : setModalVisible(true)}
+      >
+        <Animated.View key={isSorting ? 'check' : 'add'} entering={ZoomIn} exiting={FadeOut}>
           <Ionicons name={isSorting ? "checkmark-outline" : "add"} size={isSorting ? 28 : 24} color="white" />
-        </TouchableOpacity>
-      </View>
+        </Animated.View>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.fab} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+        <Ionicons name="menu" size={24} color="white" />
+      </TouchableOpacity>
 
       <FlatList
         data={accounts}
@@ -192,6 +269,7 @@ export default function WalletsScreen() {
             isSorting={isSorting}
             onLongPress={() => startSort(item.id)}
             onPress={() => handleCardPress(item.id)}
+            onDelete={() => handleDeleteAccount(item.id, item.name)}
             isSelected={swapTargetId === item.id}
           />
         )}
@@ -225,7 +303,7 @@ export default function WalletsScreen() {
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Connect Account</Text>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
-                <Ionicons name="close" size={24} color="white" />
+                <Ionicons name="close" size={24} color={theme.colors.slate900} />
               </TouchableOpacity>
             </View>
             
@@ -266,53 +344,34 @@ export default function WalletsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
-    paddingTop: Platform.OS === 'ios' ? 60 : 40,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: theme.spacing.md,
-    marginBottom: theme.spacing.lg,
-  },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: 'white',
-    letterSpacing: -0.5,
-  },
-  headerSubtitle: {
-    fontSize: 14,
-    color: theme.colors.slate400,
-  },
-  addButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: theme.colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: theme.colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
+    backgroundColor: '#f4f6f3',
   },
   listContent: {
-    paddingHorizontal: theme.spacing.md,
-    paddingBottom: 120,
+    padding: theme.spacing.md,
+    paddingBottom: 100,
   },
   columnWrapper: {
     justifyContent: 'space-between',
     marginBottom: theme.spacing.md,
   },
   instructions: {
-    marginBottom: theme.spacing.md,
-    opacity: 0.6,
+    paddingBottom: theme.spacing.md,
+  },
+  floatingAddButton: {
+    position: 'absolute',
+    top: 48,
+    right: 20,
+    zIndex: 100,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#1b4332',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
   },
   instructionText: {
-    color: 'white',
+    color: '#64748b',
     fontSize: 12,
   },
   cardContainer: {
@@ -484,12 +543,13 @@ const styles = StyleSheet.create({
     borderBottomColor: 'rgba(255,255,255,0.05)',
   },
   providerIcon: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 16,
+    marginBottom: 10,
   },
   providerInfo: {
     flex: 1,
@@ -505,4 +565,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 2,
   },
+  fab: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
 });

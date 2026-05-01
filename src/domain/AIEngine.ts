@@ -1,4 +1,4 @@
-import { Transaction, Forecast, Category } from './models';
+import { Transaction, Forecast, Category, ScheduleEvent } from './models';
 
 export class AIEngine {
   static async categorizeOCR(text: string, categories: Category[]): Promise<{ categoryId: string, amount: number, merchant: string, confidenceScore: number }> {
@@ -85,6 +85,88 @@ export class AIEngine {
       merchant,
       type: 'expense',
       date: new Date().toISOString()
+    };
+  }
+
+  static async parseScheduleEntry(text: string): Promise<Partial<ScheduleEvent>> {
+    const lower = text.toLowerCase();
+    
+    // Extracted values
+    let title = "New Event";
+    let date: string | undefined = undefined;
+    let startTime = "09:00";
+    let endTime = "10:00";
+    let category: ScheduleEvent['category'] = 'Personal';
+    let attendees: string[] = [];
+    let location = "";
+
+    // Specific Date detection
+    if (lower.includes("tomorrow")) {
+       const d = new Date();
+       d.setDate(d.getDate() + 1);
+       date = d.toISOString();
+    } else if (lower.includes("today")) {
+       date = new Date().toISOString();
+    }
+
+    // Location extraction
+    if (lower.includes(" at ")) {
+      const parts = lower.split(" at ");
+      const afterAt = parts[1].trim();
+      if (!/^\d/.test(afterAt)) {
+         location = afterAt.split(/\s+on|\s+with|\s+from/)[0];
+      }
+    } 
+    
+    if (!location && lower.includes(" on ")) {
+       const parts = lower.split(" on ");
+       const candidate = parts[1].trim().split(/\s+at|\s+with|\s+from/)[0];
+       const dateWords = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'tomorrow', 'today', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+       if (!dateWords.some(w => candidate.toLowerCase().includes(w))) {
+          location = candidate;
+       }
+    }
+
+    // Title extraction
+    if (lower.split(/\s+/).length > 2) {
+       title = text.split(/\s+at|\s+on|\s+from/)[0];
+    }
+    
+    if (lower.includes("with ")) {
+      const parts = lower.split("with ");
+      const afterWith = parts[1].trim();
+      const person = afterWith.split(/\s+/)[0];
+      attendees.push(person.charAt(0).toUpperCase() + person.slice(1));
+    }
+    
+    // Time extraction
+    const timeRegex = /(\d{1,2})(:(\d{2}))?\s*(am|pm)/i;
+    const timeMatch = lower.match(timeRegex);
+    if (timeMatch) {
+      let hour = parseInt(timeMatch[1]);
+      const isPm = timeMatch[4].toLowerCase() === 'pm';
+      if (isPm && hour < 12) hour += 12;
+      if (!isPm && hour === 12) hour = 0;
+      
+      startTime = `${hour.toString().padStart(2, '0')}:${timeMatch[3] || '00'}`;
+      endTime = `${(hour + 1).toString().padStart(2, '0')}:${timeMatch[3] || '00'}`;
+    }
+
+    // Category extraction
+    if (lower.includes("dinner") || lower.includes("lunch") || lower.includes("eat") || lower.includes("restaurant") || lower.includes("breakfast")) {
+      category = 'Personal';
+    } else if (lower.includes("meeting") || lower.includes("work") || lower.includes("sync") || lower.includes("client")) {
+      category = 'Work';
+    }
+
+    return {
+      title: title.charAt(0).toUpperCase() + title.slice(1),
+      date,
+      startTime,
+      endTime,
+      category,
+      attendees,
+      location: location.charAt(0).toUpperCase() + location.slice(1)
     };
   }
 

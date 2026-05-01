@@ -63,3 +63,34 @@ export interface Account {
   usedCredit?: number;
   logoUrl?: string;
 }
+
+export interface Trip {
+  id: string;
+  destination: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  status: 'Planning' | 'Upcoming' | 'Completed';
+  color?: string;
+}
+
+export interface ScheduleEvent {
+  id: string;
+  title: string;
+  date: string; // ISO string
+  startTime: string; // HH:mm
+  endTime: string; // HH:mm
+  location?: string;
+  attendees?: string[];
+  category: 'Work' | 'Personal' | 'Health' | 'Education' | 'Other';
+  notes?: string;
+}
+
+export interface NotificationRecord {
+  id: string;
+  title: string;
+  message: string;
+  timestamp: string;
+  read: boolean;
+  type: 'Budget' | 'Schedule' | 'System';
+}

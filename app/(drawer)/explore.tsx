@@ -6,9 +6,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { StorageClient } from '../../src/data/storage';
 import { Category, Forecast } from '../../src/domain/models';
 import { AIEngine } from '../../src/domain/AIEngine';
-import { router } from 'expo-router';
+import { router, useNavigation, useLocalSearchParams, useFocusEffect } from 'expo-router';
+import { DrawerActions } from '@react-navigation/native';
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
 import { useApp } from '../../src/context/AppContext';
+import { Header } from '../../src/ui/components/Header';
 
 export interface Goal {
   id: string;
@@ -22,10 +24,21 @@ export interface Goal {
 
 export default function ExploreScreen() {
   const { settings } = useApp();
+  const navigation = useNavigation<any>();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [forecast, setForecast] = useState<Forecast | null>(null);
   const [isAdding, setIsAdding] = useState(false);
+  const { openAdd } = useLocalSearchParams();
   const [newGoal, setNewGoal] = useState({ name: '', target: '', icon: 'star', color: theme.colors.indigo400 });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadData();
+      if (openAdd === 'true') {
+        setIsAdding(true);
+      }
+    }, [openAdd])
+  );
 
   const loadData = async () => {
     const [txns, accounts] = await Promise.all([
@@ -45,9 +58,6 @@ export default function ExploreScreen() {
     ]);
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
 
   const handleAddGoal = () => {
     if (!newGoal.name || !newGoal.target) return;
@@ -69,7 +79,13 @@ export default function ExploreScreen() {
   const curSymbol = settings.currency === 'PHP' ? '₱' : '$';
 
   return (
-    <View style={[styles.container, { backgroundColor: isDark ? theme.colors.background : '#f8fafc' }]}>
+    <View style={[styles.container, { backgroundColor: isDark ? theme.colors.background : '#f4f6f3' }]}>
+      <Header 
+        title="Financial Goals" 
+        subtitle="Plan your future" 
+        icon="sparkles" 
+        iconColor="#6366f1"
+      />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={[styles.title, { color: txtColor }]}>Financial <Text style={{ color: theme.colors.indigo400 }}>Goals</Text></Text>
@@ -152,13 +168,17 @@ export default function ExploreScreen() {
           })}
         </View>
       </ScrollView>
+      <Pressable style={styles.fab} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+        <Ionicons name="menu" size={24} color="#fff" />
+      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.background },
-  scrollContent: { padding: 20, paddingTop: 60, paddingBottom: 100 },
+  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  scrollContent: { padding: 20, paddingTop: 20, paddingBottom: 100 },
+  fab: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 },
   title: { fontSize: 28, fontWeight: '900' },
   addBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: theme.colors.indigo400, alignItems: 'center', justifyContent: 'center' },
@@ -170,7 +190,7 @@ const styles = StyleSheet.create({
   coachCard: { padding: 20, borderRadius: 24, marginBottom: 30, backgroundColor: 'rgba(129, 140, 248, 0.05)', borderWidth: 1, borderColor: 'rgba(129, 140, 248, 0.2)' },
   coachHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
   coachTitle: { color: theme.colors.indigo400, fontWeight: '900', marginLeft: 8, fontSize: 16 },
-  coachText: { color: 'rgba(255,255,255,0.7)', lineHeight: 22, fontSize: 14, fontWeight: '500' },
+  coachText: { color: '#64748b', lineHeight: 22, fontSize: 14, fontWeight: '500' },
   goalsGrid: { gap: 20 },
   goalWrapper: { width: '100%' },
   goalCard: { padding: 20, borderRadius: 28, borderWidth: 1, borderColor: 'rgba(255,255,255,0.05)' },
