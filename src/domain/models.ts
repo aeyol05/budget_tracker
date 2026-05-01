@@ -94,3 +94,9 @@ export interface NotificationRecord {
   read: boolean;
   type: 'Budget' | 'Schedule' | 'System';
 }
+export interface UserProfile {
+  name: string;
+  email: string;
+  profilePicture?: string; // base64 or local URI
+  bio?: string;
+}

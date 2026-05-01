@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { StorageClient, AppSettings } from '../data/storage';
 
-import { Transaction, Category, Budget, Subscription, Account } from '../domain/models';
+import { Transaction, Category, Budget, Subscription, Account, UserProfile } from '../domain/models';
 
 interface AppContextType {
   settings: AppSettings;
@@ -12,6 +12,8 @@ interface AppContextType {
   reorderAccounts: (newAccounts: Account[]) => Promise<void>;
   saveAccount: (account: Account) => Promise<void>;
   deleteAccount: (id: string) => Promise<void>;
+  userProfile: UserProfile | null;
+  saveUserProfile: (profile: UserProfile) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -19,6 +21,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [settings, setSettings] = useState<AppSettings>({ currency: 'PHP', darkMode: true });
   const [accounts, setAccounts] = useState<Account[]>([]);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const refreshAccounts = async () => {
@@ -29,10 +32,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     Promise.all([
       StorageClient.getSettings(),
-      StorageClient.getAccounts()
-    ]).then(([settingsData, accountsData]) => {
+      StorageClient.getAccounts(),
+      StorageClient.getProfile()
+    ]).then(([settingsData, accountsData, profileData]) => {
       setSettings(settingsData);
       setAccounts(accountsData);
+      setUserProfile(profileData);
       setIsLoaded(true);
     });
   }, []);
@@ -58,6 +63,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     await refreshAccounts();
   };
 
+  const saveUserProfile = async (profile: UserProfile) => {
+    await StorageClient.saveProfile(profile);
+    setUserProfile(profile);
+  };
+
   return (
     <AppContext.Provider value={{ 
       settings, 
@@ -67,7 +77,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       refreshAccounts, 
       reorderAccounts,
       saveAccount,
-      deleteAccount
+      deleteAccount,
+      userProfile,
+      saveUserProfile
     }}>
       {children}
     </AppContext.Provider>

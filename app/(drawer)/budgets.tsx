@@ -43,7 +43,7 @@ export default function BudgetsScreen() {
   );
 
   const curSymbol = settings.currency === 'PHP' ? '₱' : settings.currency === 'USD' ? '$' : '€';
-  const bgColor = '#f4f6f3';
+  const bgColor = '#F9F7F2';
   const txtColor = '#0f172a';
   const themeDanger = '#ef4444';
   const themeWarning = '#f59e0b';
@@ -177,7 +177,7 @@ export default function BudgetsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  container: { flex: 1, backgroundColor: '#F9F7F2' },
   card: { padding: 20, marginBottom: 16, borderRadius: 24, backgroundColor: '#fff', borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 4, elevation: 2 },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
   iconCircle: { width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginRight: 12 },

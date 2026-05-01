@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Transaction, Category, Budget, Subscription, Account, Trip, ScheduleEvent, NotificationRecord } from '../domain/models';
+import { Transaction, Category, Budget, Subscription, Account, Trip, ScheduleEvent, NotificationRecord, UserProfile } from '../domain/models';
 import uuid from 'react-native-uuid';
 import { defaultCategories } from './mockData';
 import { mockAccounts } from './mockAccounts';
@@ -17,6 +17,7 @@ const TASKS_KEY = '@ai_finance_tasks';
 const TRIPS_KEY = '@ai_finance_trips';
 const EVENTS_KEY = '@ai_finance_events';
 const NOTIFICATIONS_KEY = '@ai_finance_notifications';
+const PROFILE_KEY = '@ai_finance_profile';
 
 export interface AppSettings {
   currency: string;
@@ -272,5 +273,14 @@ export class StorageClient {
 
   static async clearNotifications(): Promise<void> {
     await AsyncStorage.removeItem(NOTIFICATIONS_KEY);
+  }
+
+  static async getProfile(): Promise<UserProfile | null> {
+    const data = await AsyncStorage.getItem(PROFILE_KEY);
+    return data ? JSON.parse(data) : null;
+  }
+
+  static async saveProfile(profile: UserProfile): Promise<void> {
+    await AsyncStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
   }
 }

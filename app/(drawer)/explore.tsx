@@ -79,7 +79,7 @@ export default function ExploreScreen() {
   const curSymbol = settings.currency === 'PHP' ? '₱' : '$';
 
   return (
-    <View style={[styles.container, { backgroundColor: isDark ? theme.colors.background : '#f4f6f3' }]}>
+    <View style={[styles.container, { backgroundColor: isDark ? theme.colors.background : '#F9F7F2' }]}>
       <Header 
         title="Financial Goals" 
         subtitle="Plan your future" 
@@ -176,9 +176,9 @@ export default function ExploreScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  container: { flex: 1, backgroundColor: '#F9F7F2' },
   scrollContent: { padding: 20, paddingTop: 20, paddingBottom: 100 },
-  fab: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
+  fab: { position: 'absolute', bottom: 90, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 },
   title: { fontSize: 28, fontWeight: '900' },
   addBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: theme.colors.indigo400, alignItems: 'center', justifyContent: 'center' },

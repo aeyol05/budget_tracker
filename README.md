@@ -41,7 +41,7 @@ CapyVault is a premium finance tracker and personal companion app built with Rea
 
 CapyVault uses a curated, light-themed aesthetic with a focus on tranquility and visual excellence.
 - **Primary Color**: Dark Green/Teal (`#1b4332`)
-- **Background**: Soft Green (`#f4f6f3`)
+- **Background**: Warm Linen (`#F9F7F2`)
 - **Typography**: Modern, bold sans-serif
 - **Interactions**: Smooth micro-animations and haptic feedback
 

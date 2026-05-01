@@ -344,7 +344,7 @@ export default function WalletsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f6f3',
+    backgroundColor: '#F9F7F2',
   },
   listContent: {
     padding: theme.spacing.md,
@@ -465,7 +465,7 @@ const styles = StyleSheet.create({
   },
   badgeContainer: {
     position: 'absolute',
-    bottom: 110,
+    bottom: 170,
     right: 20,
     alignItems: 'flex-end',
   },
@@ -565,5 +565,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 2,
   },
-  fab: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
+  fab: { position: 'absolute', bottom: 90, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
 });

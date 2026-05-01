@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Pressable, Alert, Platform } from 'react-native';
-import { StorageClient } from '../../src/data/storage';
-import { Transaction, Category } from '../../src/domain/models';
-import { theme } from '../../src/ui/theme';
-import { GlassContainer } from '../../src/ui/components/GlassContainer';
 import { Ionicons } from '@expo/vector-icons';
-import { useFocusEffect } from 'expo-router';
-import { format } from 'date-fns';
-import { useApp } from '../../src/context/AppContext';
-import { TextInput } from 'react-native';
-import { Swipeable, GestureHandlerRootView } from 'react-native-gesture-handler';
-import * as Haptics from 'expo-haptics';
-import { router, useNavigation } from 'expo-router';
 import { DrawerActions } from '@react-navigation/native';
-import Animated, { FadeIn, FadeOut, SlideInLeft } from 'react-native-reanimated';
+import { format } from 'date-fns';
+import * as Haptics from 'expo-haptics';
+import { router, useFocusEffect, useNavigation } from 'expo-router';
+import React, { useState } from 'react';
+import { Alert, FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { useApp } from '../../src/context/AppContext';
+import { StorageClient } from '../../src/data/storage';
+import { Category, Transaction } from '../../src/domain/models';
 import { Header } from '../../src/ui/components/Header';
+import { theme } from '../../src/ui/theme';
 
 export default function TransactionsScreen() {
   const navigation = useNavigation<any>();
@@ -40,8 +37,8 @@ export default function TransactionsScreen() {
 
   const filteredData = transactions.filter(t => {
     const matchesFilter = filter === 'all' || t.type === filter;
-    const matchesSearch = (t.merchant?.toLowerCase() || '').includes(search.toLowerCase()) || 
-                          (t.notes?.toLowerCase() || '').includes(search.toLowerCase());
+    const matchesSearch = (t.merchant?.toLowerCase() || '').includes(search.toLowerCase()) ||
+      (t.notes?.toLowerCase() || '').includes(search.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -59,11 +56,13 @@ export default function TransactionsScreen() {
         "Are you sure you want to delete this transaction?",
         [
           { text: "Cancel", style: "cancel" },
-          { text: "Delete", style: "destructive", onPress: async () => {
+          {
+            text: "Delete", style: "destructive", onPress: async () => {
               Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
               await StorageClient.deleteTransaction(id);
               setTransactions(prev => prev.filter(t => t.id !== id));
-          }}
+            }
+          }
         ]
       );
     }
@@ -90,15 +89,15 @@ export default function TransactionsScreen() {
           <Pressable onPress={() => router.push(`/add?editId=${item.id}`)}>
             <View style={styles.card}>
               <View style={styles.cardLeft}>
-                <View style={[styles.iconCircle, {backgroundColor: cat ? `${cat.color}20` : '#f1f5f9', borderColor: cat ? `${cat.color}30` : '#e2e8f0'}]}>
-                   <Ionicons name={(cat?.icon as any) || (isTransfer ? 'swap-horizontal' : isExp ? 'cart' : 'cash')} size={20} color={cat?.color || '#0f172a'} />
+                <View style={[styles.iconCircle, { backgroundColor: cat ? `${cat.color}20` : '#f1f5f9', borderColor: cat ? `${cat.color}30` : '#e2e8f0' }]}>
+                  <Ionicons name={(cat?.icon as any) || (isTransfer ? 'swap-horizontal' : isExp ? 'cart' : 'cash')} size={20} color={cat?.color || '#0f172a'} />
                 </View>
                 <View style={styles.cardDetails}>
                   <Text style={[styles.merchant, { color: txtColor }]}>{item.merchant || 'Unknown'}</Text>
                   <Text style={[styles.date, { color: subTxtColor }]}>{format(new Date(item.date), 'MMM dd, yyyy • HH:mm')}</Text>
                 </View>
               </View>
-              <Text style={[styles.amount, {color: isTransfer ? '#4338ca' : isExp ? '#ef4444' : '#10b981'}]}>
+              <Text style={[styles.amount, { color: isTransfer ? '#4338ca' : isExp ? '#ef4444' : '#10b981' }]}>
                 {isTransfer ? '' : isExp ? '-' : '+'}{curSymbol}{item.amount.toLocaleString()}
               </Text>
             </View>
@@ -110,47 +109,48 @@ export default function TransactionsScreen() {
 
   return (
     <GestureHandlerRootView style={[styles.container, { backgroundColor: bgColor }]}>
-      <Header 
-        title="Transactions" 
-        subtitle="Your spending history" 
-        icon="list" 
+      <Header
+        title="Transactions"
+        subtitle="Your spending history"
+        icon="list"
         iconColor="#1b4332"
         showBackButton={true}
+        gradient={['#2d6a4f', '#1b4332']}
       />
-      
-      <View style={{padding: 16}}>
+
+      <View style={{ padding: 16 }}>
         <View style={styles.searchBar}>
-        <Ionicons name="search" size={20} color="#64748b" />
-        <TextInput 
-          style={[styles.searchInput, { color: txtColor }]}
-          placeholder="Search merchants or notes..."
-          placeholderTextColor="#94a3b8"
-          value={search}
-          onChangeText={setSearch}
-        />
+          <Ionicons name="search" size={20} color="#64748b" />
+          <TextInput
+            style={[styles.searchInput, { color: txtColor }]}
+            placeholder="Search merchants or notes..."
+            placeholderTextColor="#94a3b8"
+            value={search}
+            onChangeText={setSearch}
+          />
+        </View>
+
+        <View style={styles.filterRow}>
+          {(['all', 'income', 'expense', 'transfer'] as const).map(f => (
+            <Pressable
+              key={f}
+              style={[styles.filterBtn, filter === f && styles.filterBtnActive]}
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setFilter(f);
+              }}
+            >
+              <Text style={[styles.filterText, filter === f && { color: '#1b4332' }]}>{f.charAt(0).toUpperCase() + f.slice(1)}</Text>
+            </Pressable>
+          ))}
+        </View>
       </View>
 
-      <View style={styles.filterRow}>
-        {(['all', 'income', 'expense', 'transfer'] as const).map(f => (
-          <Pressable 
-            key={f}
-            style={[styles.filterBtn, filter === f && styles.filterBtnActive]} 
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              setFilter(f);
-            }}
-          >
-            <Text style={[styles.filterText, filter === f && {color: '#1b4332'}]}>{f.charAt(0).toUpperCase() + f.slice(1)}</Text>
-          </Pressable>
-        ))}
-      </View>
-    </View>
-
-    <FlatList
+      <FlatList
         data={filteredData}
         keyExtractor={item => item.id}
         renderItem={renderItem}
-        contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 150}}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 150 }}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Ionicons name="receipt-outline" size={64} color={theme.colors.slate900} />
@@ -163,8 +163,8 @@ export default function TransactionsScreen() {
         <Ionicons name="menu" size={24} color="#fff" />
       </Pressable>
 
-      <Pressable 
-        style={styles.fab} 
+      <Pressable
+        style={styles.fab}
         onPress={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
           router.push('/add');

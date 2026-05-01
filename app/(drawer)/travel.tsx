@@ -140,6 +140,7 @@ export default function TravelScreen() {
         subtitle="Plan your next adventure" 
         icon="airplane" 
         iconColor="#a78bfa"
+        gradient={['#8c6f96', '#6f537a']}
       />
 
       <View style={styles.toolbar}>
@@ -294,7 +295,7 @@ export default function TravelScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  container: { flex: 1, backgroundColor: '#F9F7F2' },
   toolbar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, borderBottomWidth: 1, borderBottomColor: '#e2e8f0' },
   tripCount: { color: '#64748b', fontWeight: '600' },
   addBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1b4332', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 12 },
@@ -317,7 +318,7 @@ const styles = StyleSheet.create({
   emptyIconContainer: { width: 80, height: 80, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', marginBottom: 16 },
   emptyTitle: { fontSize: 18, fontWeight: '700', color: '#0f172a', marginBottom: 4 },
   emptySubtitle: { fontSize: 14, color: '#64748b' },
-  fabMenu: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
+  fabMenu: { position: 'absolute', bottom: 90, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
   
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', alignItems: 'center', padding: 20 },
   modalContent: { backgroundColor: '#fff', borderRadius: 32, padding: 24, width: '100%', maxWidth: 500, shadowColor: '#000', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.2, shadowRadius: 20, elevation: 10 },

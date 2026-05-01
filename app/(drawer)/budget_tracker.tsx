@@ -96,7 +96,7 @@ export default function BudgetTrackerScreen() {
   };
 
   const isDark = false; // Standardized to light theme
-  const bgColor = '#f4f6f3';
+  const bgColor = '#F9F7F2';
   const txtColor = '#0f172a';
   const subTxtColor = '#64748b';
 
@@ -107,6 +107,7 @@ export default function BudgetTrackerScreen() {
         subtitle="Manage your finances" 
         icon="wallet" 
         iconColor="#1b4332"
+        gradient={['#698b53', '#4f772d']}
       />
 
       <ScrollView 
@@ -279,7 +280,7 @@ export default function BudgetTrackerScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  scrollContent: { padding: 16, paddingBottom: 110 },
+  scrollContent: { padding: 16, paddingBottom: 160 },
   balanceCard: { backgroundColor: '#fff', borderRadius: 32, padding: 24, marginBottom: 24, borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2 },
   balanceLabel: { fontSize: 10, color: '#64748b', letterSpacing: 1.5, fontWeight: '800' },
   balanceValue: { fontSize: 36, fontWeight: '800', color: '#0f172a', marginTop: 8 },
@@ -316,5 +317,5 @@ const styles = StyleSheet.create({
   tAmount: { fontSize: 16, fontWeight: '800' },
   emptyContainer: { padding: 40, alignItems: 'center' },
   emptyText: { color: '#94a3b8', fontSize: 14 },
-  fabMenu: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
+  fabMenu: { position: 'absolute', bottom: 90, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
 });

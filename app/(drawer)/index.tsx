@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, ActivityIndicator, Dimensions, PanResponder } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, ActivityIndicator, Dimensions, PanResponder, Image } from 'react-native';
 import { theme } from '../../src/ui/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { router, useFocusEffect, useNavigation } from 'expo-router';
@@ -8,6 +8,7 @@ import { StorageClient } from '../../src/data/storage';
 import { Header } from '../../src/ui/components/Header';
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
 import { format, isSameDay } from 'date-fns';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useApp } from '../../src/context/AppContext';
 import * as Haptics from 'expo-haptics';
 import { ScheduleEvent } from '../../src/domain/models';
@@ -169,6 +170,7 @@ export default function DashboardScreen() {
         subtitle="Your daily overview" 
         icon="grid" 
         iconColor="#1b4332"
+        gradient={['#2d6a4f', '#1b4332']}
       />
 
       <PullToRefresh 
@@ -186,10 +188,11 @@ export default function DashboardScreen() {
           scrollEventThrottle={16}
         >
         {/* Hero Card */}
-        <Animated.View entering={FadeInDown} style={styles.heroCard}>
+        <Animated.View entering={FadeInDown}>
+          <LinearGradient colors={['#2d6a4f', '#1b4332']} style={styles.heroCard}>
            <View style={styles.heroHeader}>
              <View style={styles.heroLogoContainer}>
-                <Ionicons name="leaf" size={24} color="#fff" />
+                <Image source={require('../../assets/images/capi_logo_v2.png')} style={{ width: 160, height: 160, resizeMode: 'contain' }} />
              </View>
              <View style={{ marginLeft: 12 }}>
                 <Text style={styles.heroDate}>{format(new Date(), 'EEEE, MMMM dd, yyyy').toUpperCase()}</Text>
@@ -209,6 +212,7 @@ export default function DashboardScreen() {
                   </Text>
                </View>
             </View>
+          </LinearGradient>
          </Animated.View>
 
          {/* Wallet Quick Summary */}
@@ -442,9 +446,9 @@ export default function DashboardScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  container: { flex: 1, backgroundColor: '#F9F7F2' },
   scrollContent: { paddingHorizontal: 20, paddingTop: 20 },
-  heroCard: { backgroundColor: '#1b4332', borderRadius: 32, padding: 24, marginBottom: 24 },
+  heroCard: { borderRadius: 32, padding: 24, marginBottom: 24 },
   heroHeader: { flexDirection: 'row', alignItems: 'center' },
   heroLogoContainer: { width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(255,255,255,0.2)', alignItems: 'center', justifyContent: 'center' },
   heroDate: { color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: '700', letterSpacing: 1 },
@@ -513,6 +517,6 @@ const styles = StyleSheet.create({
   tripPill: { backgroundColor: '#fef3c7', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10 },
   tripPillText: { fontSize: 10, fontWeight: '800', color: '#92400e' },
   
-  fabMenu: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
+  fabMenu: { position: 'absolute', bottom: 90, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
 
 });

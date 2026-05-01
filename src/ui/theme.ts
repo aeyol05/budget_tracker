@@ -1,6 +1,6 @@
 export const theme = {
   colors: {
-    background: '#f4f6f3', 
+    background: '#F9F7F2', 
     surface: '#ffffff',
     surfaceGlass: 'rgba(255, 255, 255, 0.8)',
     cardGradient: ['#ffffff', '#ffffff'],

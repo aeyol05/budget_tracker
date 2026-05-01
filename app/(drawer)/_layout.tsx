@@ -5,10 +5,16 @@ import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navi
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../../src/ui/theme';
 import { router } from 'expo-router';
+import { useApp } from '../../src/context/AppContext';
+
+import { LinearGradient } from 'expo-linear-gradient';
 
 function CustomDrawerContent(props: any) {
+  const { userProfile } = useApp();
+
   return (
-    <DrawerContentScrollView {...props} style={styles.drawerStyle}>
+    <LinearGradient colors={['#1b4332', '#2d6a4f']} style={{flex: 1}}>
+      <DrawerContentScrollView {...props} style={styles.drawerStyle}>
       <View style={styles.drawerHeader}>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 16}}>
            <Pressable style={{marginRight: 16}} onPress={() => { router.push('/notifications'); }}>
@@ -18,15 +24,22 @@ function CustomDrawerContent(props: any) {
              <Ionicons name="settings-outline" size={22} color="#fff" />
            </Pressable>
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Pressable 
+          style={{flexDirection: 'row', alignItems: 'center'}}
+          onPress={() => router.push('/profile')}
+        >
           <View style={styles.avatarContainer}>
-             <Image source={require('../../assets/images/capy_vault_logo_flat.png')} style={styles.avatar} />
+             {userProfile?.profilePicture ? (
+               <Image source={{ uri: userProfile.profilePicture }} style={[styles.avatar, { width: 72, height: 72, borderRadius: 20 }]} />
+             ) : (
+               <Image source={require('../../assets/images/capi_logo_v2.png')} style={styles.avatar} />
+             )}
           </View>
           <View style={{marginLeft: 12}}>
-            <Text style={styles.brandTitle}>Capi</Text>
-            <Text style={styles.brandSubtitle}>Plan. Track. Note. Explore.</Text>
+            <Text style={styles.brandTitle}>{userProfile?.name || 'Capi'}</Text>
+            <Text style={styles.brandSubtitle}>{userProfile?.email || 'Plan. Track. Note. Explore.'}</Text>
           </View>
-        </View>
+        </Pressable>
       </View>
       <View style={styles.drawerItemsContainer}>
         <DrawerItemList {...props} />
@@ -36,6 +49,7 @@ function CustomDrawerContent(props: any) {
          <Text style={{color: '#fff', fontSize: 13, fontWeight: '700'}}>for everyday life.</Text>
       </View>
     </DrawerContentScrollView>
+    </LinearGradient>
   );
 }
 
@@ -126,6 +140,7 @@ export default function DrawerLayout() {
         }}
       />
        <Drawer.Screen name="notifications" options={{ drawerItemStyle: { display: 'none' } }} />
+       <Drawer.Screen name="profile" options={{ drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="wallets" options={{ drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="transactions" options={{ drawerItemStyle: { display: 'none' } }} />
       <Drawer.Screen name="explore" options={{ drawerItemStyle: { display: 'none' } }} />
@@ -138,7 +153,7 @@ export default function DrawerLayout() {
 
 const styles = StyleSheet.create({
   drawerStyle: {
-    backgroundColor: theme.colors.drawerBg,
+    backgroundColor: 'transparent',
   },
   drawerHeader: {
     padding: 24,

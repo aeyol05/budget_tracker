@@ -91,6 +91,7 @@ export default function AnalyticsScreen() {
         subtitle="Analyze your spending" 
         icon="analytics" 
         iconColor="#4338ca"
+        gradient={['#4338ca', '#312e81']}
       />
       <ScrollView contentContainerStyle={{padding: 16, paddingBottom: 100}}>
         <View style={styles.headerRow}>
@@ -189,7 +190,7 @@ export default function AnalyticsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  container: { flex: 1, backgroundColor: '#F9F7F2' },
   headerRow: { flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginBottom: 20 },
   title: { fontSize: 32, fontWeight: '800', color: '#0f172a' },
   rangeSelector: { flexDirection: 'row', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 12, padding: 4 },
@@ -214,5 +215,5 @@ const styles = StyleSheet.create({
   tMerchant: { fontSize: 15, fontWeight: '700', color: '#0f172a' },
   tDate: { fontSize: 11, color: theme.colors.slate500, marginTop: 4 },
   tAmount: { fontSize: 15, fontWeight: '800', color: '#f43f5e' },
-  fab: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
+  fab: { position: 'absolute', bottom: 90, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
 });

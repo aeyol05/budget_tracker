@@ -146,7 +146,7 @@ export default function AddTransactionScreen() {
   };
 
   const curSymbol = settings.currency === 'PHP' ? '₱' : settings.currency === 'USD' ? '$' : '€';
-  const bgColor = '#f4f6f3';
+  const bgColor = '#F9F7F2';
   const txtColor = '#0f172a';
 
   const [permission, requestPermission] = useCameraPermissions();
@@ -406,7 +406,7 @@ export default function AddTransactionScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  container: { flex: 1, backgroundColor: '#F9F7F2' },
   title: { fontSize: 24, fontWeight: '800', color: '#0f172a', marginTop: 20 },
   subtitle: { fontSize: 14, color: '#64748b', marginTop: 8, marginBottom: 40 },
   primaryBtn: { backgroundColor: '#1b4332', paddingHorizontal: 30, paddingVertical: 15, borderRadius: 25 },

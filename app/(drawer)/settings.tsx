@@ -40,7 +40,7 @@ export default function SettingsScreen() {
 
   if (!isLoaded) return null;
 
-  const bgColor = '#f4f6f3';
+  const bgColor = '#F9F7F2';
   const txtColor = '#0f172a';
   const subTxtColor = '#64748b';
 
@@ -49,6 +49,7 @@ export default function SettingsScreen() {
       <Header 
         title="Settings" 
         showBackButton={true}
+        gradient={['#64748b', '#475569']}
       />
 
       <Pressable onPress={changeCurrency}>
@@ -106,5 +107,5 @@ const styles = StyleSheet.create({
   rowValue: { fontSize: 16, color: '#64748b', fontWeight: '700' },
   resetBtn: { backgroundColor: 'rgba(244, 63, 94, 0.1)', paddingVertical: 18, borderRadius: 20, alignItems: 'center' },
   resetText: { color: '#f43f5e', fontSize: 16, fontWeight: '700' },
-  fab: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
+  fab: { position: 'absolute', bottom: 90, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 }
 });

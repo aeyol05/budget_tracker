@@ -124,6 +124,7 @@ export default function NotesScreen() {
         subtitle="Capture your thoughts" 
         icon="document-text" 
         iconColor="#467491"
+        gradient={['#467491', '#2f4f4f']}
       />
 
       {/* Toolbar */}
@@ -254,7 +255,7 @@ export default function NotesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f4f6f3' },
+  container: { flex: 1, backgroundColor: '#F9F7F2' },
   headerIconContainer: {
     width: 32, height: 32, borderRadius: 10, backgroundColor: '#467491',
     alignItems: 'center', justifyContent: 'center'
@@ -281,7 +282,7 @@ const styles = StyleSheet.create({
   emptySubtitle: { fontSize: 14, color: '#64748b', marginBottom: 24 },
   createBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1b4332', paddingHorizontal: 20, paddingVertical: 12, borderRadius: 12 },
   createBtnText: { color: '#fff', fontWeight: '600', fontSize: 15 },
-  fab: { position: 'absolute', bottom: 24, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
+  fab: { position: 'absolute', bottom: 90, left: 16, width: 48, height: 48, borderRadius: 24, backgroundColor: '#1b4332', alignItems: 'center', justifyContent: 'center', elevation: 4 },
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center', padding: 20 },
   modalContent: { width: '100%', backgroundColor: '#fff', borderRadius: 24, padding: 24 },
   modalTitle: { fontSize: 18, fontWeight: '700', color: '#0f172a' },

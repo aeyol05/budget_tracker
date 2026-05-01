@@ -278,7 +278,7 @@ export default function ScheduleScreen() {
 
   return (
     <View style={styles.container}>
-      <Header title={viewType === 'Agenda' ? "Up Next" : "Schedule"} subtitle="Your personal timeline" icon="calendar" iconColor="#8b5e3c" />
+      <Header title={viewType === 'Agenda' ? "Up Next" : "Schedule"} subtitle="Your personal timeline" icon="calendar" iconColor="#8b5e3c" gradient={['#8b5e3c', '#6f4e37']} />
       
       <View style={styles.viewTabs}>
          {(['Month', 'Week', 'Day', 'Agenda'] as ViewType[]).map(tab => (
